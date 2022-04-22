@@ -1,41 +1,32 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const SpotifyWebApi = require('spotify-web-api-node');
+const path = require('path');
+const scopes = ['user-read-email', 'user-read-private','playlist-read-collaborative','playlist-modify-public','playlist-read-private','playlist-modify-private','user-library-modify','user-library-read','user-top-read', 'user-read-playback-position','user-read-recently-played','user-follow-read','user-follow-modify'];
+const client_id = "23305fca54214006893a401bee4acce3";
+const secret = "cb15c9b6c04840079157cda7fbdc3a8c";
+const uri = 'http://127.0.0.1:3000/callback';
+const port = process.env.PORT || 3000
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+//set app credentials
+var spotifyApi = new SpotifyWebApi({
+	clientId: client_id,
+	clientSecret: secret,
+	redirectUri: uri
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.get('/', (req, res)=>{
+	res.render('index', {title: 'Playlitic'});
 });
 
-module.exports = app;
+var server = app.listen(port, ()=>{
+	var host = server.address().address;
+	var port = server.address().port;
+
+	console.log('Applicazione in ascolto su http://%s%s\n', host, port);
+});
