@@ -22,52 +22,29 @@
   </head>
   <body>
     
-    <!--sidebar-->
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4"><%= title %></span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link active " aria-current="page">
-            <span class="material-symbols-rounded align-middle">home</span> 
-            <span class="align-middle">Homepage</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white" aria-current="page">
-            <span class="material-symbols-rounded align-middle">queue_music</span> 
-            <span class="align-middle">Homepage</span>
-          </a>        
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white" aria-current="page">
-            <span class="material-symbols-rounded align-middle">queue_music</span> 
-            <span class="align-middle">Homepage</span>
-          </a>        
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white" aria-current="page">
-            <span class="material-symbols-rounded align-middle">queue_music</span> 
-            <span class="align-middle">Homepage</span>
-          </a>        
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white" aria-current="page">
-            <span class="material-symbols-rounded align-middle">queue_music</span> 
-            <span class="align-middle">Homepage</span>
-          </a>        
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>Matteo</strong>
-        </a>
-      </div>
-    </div>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+          <a href="#" class="navbar-brand">Playlitic</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Link</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Link</a>
+              </li>             
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 
     <script src="/javascripts/bootstrap.js"></script>
   </body>
