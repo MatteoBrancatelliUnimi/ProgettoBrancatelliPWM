@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000
 
 const app = express();
 
+var loggedUser = {};
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -24,6 +26,11 @@ app.get('/', (req, res)=>{
 	res.render('index', {title: 'Playlitic'});
 });
 
+app.get('/login', (req, res)=>{
+	res.redirect(spotifyApi.createAuthorizeURL(scopes));
+});
+
+//Callback function for Spotify
 app.get('/callback', (req, res)=>{
 	const error = req. query.error;
 	const code = req.query.code;
@@ -54,6 +61,13 @@ app.get('/callback', (req, res)=>{
 	.catch(err => {
 		console.error('Errore nell\'ottenere i token: ', err);
 		res.render('error', {message: 'Errore nell\'ottenere i token', error: err});
+	});
+});
+
+app.get('/homepage', (req, res)=>{
+	spotifyApi.getMe().then(data => {
+		loggedUser.me = data.body;
+		res.render('index', {title: 'Homepage di ' + loggedUser.me.id, user: loggedUser});
 	});
 });
 
