@@ -24,6 +24,39 @@ app.get('/', (req, res)=>{
 	res.render('index', {title: 'Playlitic'});
 });
 
+app.get('/callback', (req, res)=>{
+	const error = req. query.error;
+	const code = req.query.code;
+	const state = req.query.state;
+
+	if(error){
+		console.error('Errore nella chiamata di callback: ', error);
+		res.render('error', {message: 'Errore nella chiamata di callback', error: error});
+		return;
+	}
+
+	spotifyApi.authorizationCodeGrant(code)
+	.then(data => {
+		let access_t = data.body.access_token;
+		let refresh_t = data.body.refresh_token;
+		let expires_in = data.body.expires_in;
+
+		spotifyApi.setAccessToken(access_t);
+		spotifyApi.setRefreshToken(refresh_t);
+		res.redirect('/homepage');
+
+		//Refresh access token
+		setInterval(async () => {
+			let data = await spotifyApi.refreshAccessToken();
+			let access_token = data.body.access_token;
+		}, expires_in / 2 * 1000);
+	})
+	.catch(err => {
+		console.error('Errore nell\'ottenere i token: ', err);
+		res.render('error', {message: 'Errore nell\'ottenere i token', error: err});
+	});
+});
+
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
 	var port = server.address().port;
