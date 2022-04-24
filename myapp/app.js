@@ -23,7 +23,7 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 app.get('/', (req, res)=>{
-	res.render('index', {title: 'Playlitic'});
+	res.render('login', {title: 'Playlitic'});
 });
 
 app.get('/login', (req, res)=>{
