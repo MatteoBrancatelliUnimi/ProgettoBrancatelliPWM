@@ -7,6 +7,8 @@
 
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="/stylesheets/index.css">
     <!--Slick Slider-->
     <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
@@ -22,7 +24,7 @@
       }
       </style>
   </head>
-  <body>
+  <body class="mx-auto">
     
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -65,8 +67,8 @@
         <div class="px-4 py-5 my-5 text-center mx-auto">
           <div class="slider mx-auto">
             <% myItems.artists.items.forEach(artist => { %>
-            <div class="mx-auto">
-              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded">
+            <div class="mx-auto m-auto">
+              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded artist-img">
               <h4><%= artist.name %></h4>
             </div>
             <% }); %>

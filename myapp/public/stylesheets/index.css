@@ -1,0 +1,9 @@
+
+
+
+body{
+    overflow-x: hidden;
+}
+.artist-img:hover{
+    cursor: pointer;
+}
