@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= user.me.id %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8"> 
 
@@ -61,13 +61,16 @@
         </div>
       </div>
       <hr>
-      <div class="px-4 py-5 my-5">
-        <div class="slider">
-          <img class="  rounded-circle" src="<%= user.me.images[0].url %>" alt="" width="120" height="120">
-          <img class="  rounded-circle" src="<%= user.me.images[0].url %>" alt="" width="120" height="120">
-          <img class="  rounded-circle" src="<%= user.me.images[0].url %>" alt="" width="120" height="120">
-          <img class="  rounded-circle" src="<%= user.me.images[0].url %>" alt="" width="120" height="120">
-          <img class="  rounded-circle" src="<%= user.me.images[0].url %>" alt="" width="120" height="120">
+      <div class="mx-auto">
+        <div class="px-4 py-5 my-5 text-center mx-auto">
+          <div class="slider mx-auto">
+            <% myItems.artists.items.forEach(artist => { %>
+            <div class="mx-auto">
+              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded">
+              <h4><%= artist.name %></h4>
+            </div>
+            <% }); %>
+          </div>
         </div>
       </div>
     </main>

@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000
 const app = express();
 
 var loggedUser = {};
+var library = {};
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -65,9 +66,30 @@ app.get('/callback', (req, res)=>{
 });
 
 app.get('/homepage', (req, res)=>{
+
 	spotifyApi.getMe().then(data => {
 		loggedUser.me = data.body;
-		res.render('index', {title: 'Homepage di ' + loggedUser.me.id, user: loggedUser});
+		
+		return spotifyApi.getUserPlaylists(loggedUser.me.name).then(data => {
+			return data.body;
+		}).catch(err => {
+			res.render('error', {message: 'Errore nel recuperare le tue playlists.', error: err});
+		});
+	})
+	.then(playlists => {
+		library.playlists = playlists;
+		return spotifyApi.getFollowedArtists().then(data => {
+			return data.body.artists;;
+		}).catch(err => {
+			res.render('error', {message: 'Errore nel recuperare i tuoi artisti.', error: err});
+		});
+	})
+	.then(followedArtists => {
+		library.artists = followedArtists;
+		res.render('index', {user: loggedUser, myItems: library});
+	})
+	.catch(err => {
+		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err});
 	});
 });
 
