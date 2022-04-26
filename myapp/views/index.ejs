@@ -65,6 +65,28 @@
         </div>
       </div>
       <hr>
+      <!--Playlist dell'utente-->
+      <div class="mx-auto">
+        <div class="mx-auto pb-1 px-4">
+          <h1><b>Saved</b> playlists</h1>
+          <div class="container-fluid mt-5">
+            <div class="row">
+              <% myItems.playlists.items.forEach(playlist => { %>
+                <div class="col mb-5">
+                  <div class="card h-100 mx-auto hover-shadow" style="width: 18rem;">
+                    <img src="<%= playlist.images[0].url %>" alt="Playlist cover" class="card-img-top">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= playlist.name %></h5>
+                      <p class="card-text"><%= playlist.description %></p>
+                      <a href="#" class="btn btn-primary">More</a>
+                    </div>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script src="/javascripts/bootstrap.js"></script>
