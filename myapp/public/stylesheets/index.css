@@ -10,6 +10,6 @@ body{
 .artist-img:hover{
     cursor: pointer;
 }
-.artist-box{
-    margin-bottom: 1.5em;
+.slider{
+    margin: 1.5em auto;
 }
