@@ -4,6 +4,12 @@
 body{
     overflow-x: hidden;
 }
+.artist-img{
+    margin-bottom: 1.25em;
+}
 .artist-img:hover{
     cursor: pointer;
+}
+.artist-box{
+    margin-bottom: 1.5em;
 }

@@ -2,12 +2,12 @@ $(document).ready(()=>{
     $('.slider').slick({
         dots: true,
         infinite: false,
-        speed: 300,
-        slidesToShow: 3, 
-        slidesToScroll: 3,
+        speed: 700,
+        slidesToShow: 8, 
+        slidesToScroll: 8,
         responsive: [
             {
-                breakpoint: 768,
+                breakpoint: 992,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,

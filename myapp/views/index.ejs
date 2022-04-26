@@ -62,14 +62,13 @@
           </div>
         </div>
       </div>
-      <hr>
       <div class="mx-auto">
         <div class="px-4 py-5 my-5 text-center mx-auto">
           <div class="slider mx-auto">
             <% myItems.artists.items.forEach(artist => { %>
-            <div class="mx-auto m-auto">
-              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded artist-img">
-              <h4><%= artist.name %></h4>
+            <div class="mx-auto m-auto artist-box">
+              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded-circle artist-img">
+              <h6><%= artist.name %></h6>
             </div>
             <% }); %>
           </div>
