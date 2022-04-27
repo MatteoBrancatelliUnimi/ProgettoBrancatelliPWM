@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= user.me.id %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,85 +9,99 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <!--Custom CSS-->
     <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/sidebar.css">
     <!--Slick Slider-->
     <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-    <!--icons-->
-    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
-      .material-symbols-rounded {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 48
-      }
-      </style>
+    <!--boxicons css-->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   </head>
-  <body class="mx-auto container">
+  <body>
     
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <div class="container">
-          <a href="#" class="navbar-brand">Playlitic</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="navbar navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Link</a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">Link</a>
-              </li>             
-            </ul>
+    <nav class="sidebar close">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="<%= user.me.images[0].url %>" alt="Profile pic">
+          </span>
+          <div class="text logo-text">
+            <span class="name">Nomeutente</span>
+            <span class="profession">informazione</span>
           </div>
         </div>
-      </nav>
-    </header>
 
-    <main>
-      <div class="mx-auto">
-        <div class="px-4 pt-5 pb-1 mt-5 mx-auto">
-          <h1><b>Followed</b> artists</h1>
-          <div class="slider mx-auto text-center">
-            <% myItems.artists.items.forEach(artist => { %>
-            <div class="mx-auto m-auto artist-box">
-              <img src="<%= artist.images[0].url %>" alt="Spotify profile pic" width="140" height="140" class="mx-auto rounded-circle artist-img">
-              <h6><%= artist.name %></h6>
+        <i class="bx bx-chevron-right toggle"></i>
+      </header>
+
+      <div class="menu-bar">
+        <div class="menu">
+          <li class="search-box">
+            <i class="bx bx-search icon"></i>
+            <input type="text" placeholder="Search...">
+          </li>
+          <ul class="menu-links px-0">
+            <li>
+              <a href="#">
+                <i class="bx bx-home-alt icon"></i>
+                <span class="text nav-text">Homepage</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                  <i class='bx bx-bar-chart-alt-2 icon' ></i>
+                  <span class="text nav-text">Revenue</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                  <i class='bx bx-bell icon'></i>
+                  <span class="text nav-text">Notifications</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                  <i class='bx bx-pie-chart-alt icon' ></i>
+                  <span class="text nav-text">Analytics</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                  <i class='bx bx-heart icon' ></i>
+                  <span class="text nav-text">Likes</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                  <i class='bx bx-wallet icon' ></i>
+                  <span class="text nav-text">Wallets</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-content">
+          <li>
+            <a href="#">
+              <i class="bx bx-log-out icon"></i>
+              <span class="text nav-text">Logout</span>
+            </a>
+          </li>
+          <li class="mode">
+            <div class="sun-moon">
+              <i class="bx bx-moon icon moon"></i>
+              <i class="bx bx-sun icon sun"></i>
             </div>
-            <% }); %>
-          </div>
+            <span class="mode-text text">Dark mode</span>
+            <div class="toggle-switch">
+              <span class="switch"></span>
+            </div>
+          </li>
         </div>
       </div>
-      <hr>
-      <!--Playlist dell'utente-->
-      <div class="mx-auto">
-        <div class="mx-auto pb-1 px-4">
-          <h1><b>Saved</b> playlists</h1>
-          <div class="container-fluid mt-5">
-            <div class="row">
-              <% myItems.playlists.items.forEach(playlist => { %>
-                <div class="col-xxl-4 col col-md-6 mb-5">
-                  <div class="card h-100 mx-auto hover-shadow rounded" style="max-width: 18rem;">
-                    <img src="<%= playlist.images[0].url %>" alt="Playlist cover" class="card-img-top">
-                    <div class="card-body">
-                      <h5 class="card-title"><%= playlist.name %></h5>
-                      <p class="card-text"><%= playlist.description %></p>
-                      <a href="#" class="btn btn-primary">More</a>
-                    </div>
-                  </div>
-                </div>
-              <% }); %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    </nav>
+
+    <section class="home">
+      <div class="text">Dashbar sidebar</div>
+    </section>
 
     <script src="/javascripts/bootstrap.js"></script>
     <!--Slick Slider js-->
@@ -95,5 +109,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="slick/slick.min.js"></script>
     <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
+    <!--sidebar js-->
+    <script type="text/javascript" src="/javascripts/sidebar.js"></script>
   </body>
 </html>
