@@ -100,7 +100,13 @@ body.dark{
     opacity: 0;
 }
 /* =========================== */
-
+.sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none!important;
+}
 .sidebar header{
     position: relative;
 }
@@ -293,7 +299,7 @@ body.dark .switch::before{
     transition: var(--tran-05);
 }
 .home .text{
-    font-size: 30px;
+    /*font-size: 30px;*/
     font-weight: 500;
     color: var(--text-color);
     padding: 12px 60px;
@@ -306,4 +312,27 @@ body.dark .switch::before{
 }
 body.dark .home .text{
     color: var(--text-color);
+}
+
+@media screen and (max-width: 790px) {
+
+    .sidebarOpen{
+        display: inline-block!important;
+    }
+    .sidebar{
+        display: none;
+        transition: var(--tran-05);
+    }
+    .sidebar.visible{
+        display: block;
+        transition: var(--tran-05);
+    }
+    .home{
+        left: 0;
+        width: 100%;
+    }
+    .sidebar.close ~ .home{
+        left: 0;
+        width: 100%;
+    }
 }

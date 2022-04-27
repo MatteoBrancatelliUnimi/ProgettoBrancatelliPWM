@@ -18,6 +18,7 @@
   </head>
   <body>
     
+    <!--SIDEBAR-->
     <nav class="sidebar close">
       <header>
         <div class="image-text">
@@ -25,8 +26,8 @@
             <img src="<%= user.me.images[0].url %>" alt="Profile pic">
           </span>
           <div class="text logo-text">
-            <span class="name">Nomeutente</span>
-            <span class="profession">informazione</span>
+            <span class="name">Ciao</span>
+            <span class="profession" style="text-overflow:unset;"><%= user.me.id %></span>
           </div>
         </div>
 
@@ -98,9 +99,21 @@
         </div>
       </div>
     </nav>
+    <!--End sidebar-->
 
     <section class="home">
-      <div class="text">Dashbar sidebar</div>
+      <div class="container-fluid">
+        <div class="card text">
+          <i class="bx bx-menu sidebarOpen"></i>
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <script src="/javascripts/bootstrap.js"></script>
