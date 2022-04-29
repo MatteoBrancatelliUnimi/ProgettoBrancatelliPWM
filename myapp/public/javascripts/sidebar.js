@@ -21,6 +21,7 @@ openSidebar.addEventListener("click" , () =>{
   sidebar.classList.add("visible");
 })
 
+//dark/light mode handler
 modeSwitch.addEventListener("click" , () =>{
 body.classList.toggle("dark");
 

@@ -24,7 +24,23 @@
 }
 
 body{
-    overflow-x: hidden;
+    min-height: 100vh;
+    background-color: var(--body-color);
+    transition: var(--tran-05);
+}
+
+::selection{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+body.dark{
+    --body-color: #18191a;
+    --sidebar-color: #242526;
+    --primary-color: #3a3b3c;
+    --primary-color-light: #3a3b3c;
+    --toggle-color: #fff;
+    --text-color: #ccc;
 }
 
 .home{
@@ -53,6 +69,10 @@ body{
     height: 100vh;
     width: calc(100% - 78px);
 }
+body.dark .home .card{
+    background-color: var(--sidebar-color);
+}
 body.dark .home .text{
     color: var(--text-color);
 }
+
