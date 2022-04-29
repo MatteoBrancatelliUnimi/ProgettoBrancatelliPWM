@@ -86,6 +86,9 @@ app.get('/homepage', (req, res)=>{
 	})
 	.then(followedArtists => {
 		library.artists = followedArtists;
+		spotifyApi.getCategories({limit: 50}).then(data => {
+			console.log(data.body.categories.items[0].icons);
+		});
 		res.render('index', {user: loggedUser, myItems: library});
 	})
 	.catch(err => {
