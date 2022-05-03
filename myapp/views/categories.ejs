@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= user.me.id %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"> 
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/sidebar.css">
+    <!--Slick Slider-->
+    <link rel="stylesheet" type="text/css" href="/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css"/>
+    <!--boxicons css-->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body>
+      <!--SIDEBAR-->
+    <nav class="sidebar close">
+    <header>
+        <div class="image-text">
+        <span class="image">
+            <img src="<%= user.me.images[0].url %>" alt="Profile pic">
+        </span>
+        <div class="text logo-text">
+            <span class="name">Ciao</span>
+            <span class="profession" style="text-overflow:unset;"><%= user.me.id %></span>
+        </div>
+        </div>
+
+        <i class="bx bx-chevron-right toggle"></i>
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu">
+        <li class="search-box">
+            <i class="bx bx-search icon"></i>
+            <input type="text" placeholder="Search...">
+        </li>
+        <ul class="menu-links px-0">
+            <li>
+            <a href="/homepage">
+                <i class="bx bx-home-alt icon"></i>
+                <span class="text nav-text">Homepage</span>
+            </a>
+            </li>
+            <li>
+            <a href="#">
+                <i class='bx bxs-playlist icon'></i>
+                <span class="text nav-text">Create</span>
+            </a>
+            </li>
+            <li>
+            <a href="#" class="active">
+                <i class='bx bx-category-alt icon'></i>
+                <span class="text nav-text">Discover</span>
+            </a>
+            </li>
+            <li>
+            <a href="#">
+                <i class='bx bx-pie-chart-alt icon' ></i>
+                <span class="text nav-text">Analytics</span>
+            </a>
+            </li>
+            <li>
+            <a href="#">
+                <i class='bx bx-heart icon' ></i>
+                <span class="text nav-text">Likes</span>
+            </a>
+            </li>
+            <li>
+            <a href="#">
+                <i class='bx bx-wallet icon' ></i>
+                <span class="text nav-text">Wallets</span>
+            </a>
+            </li>
+        </ul>
+        </div>
+        <div class="bottom-content">
+        <li>
+            <a href="#">
+            <i class="bx bx-log-out icon"></i>
+            <span class="text nav-text">Logout</span>
+            </a>
+        </li>
+        <li class="mode">
+            <div class="sun-moon">
+            <i class="bx bx-moon icon moon"></i>
+            <i class="bx bx-sun icon sun"></i>
+            </div>
+            <span class="mode-text text">Dark mode</span>
+            <div class="toggle-switch">
+            <span class="switch"></span>
+            </div>
+        </li>
+        </div>
+    </div>
+    </nav>
+    <!--End sidebar-->
+
+    <section class="home" style="white-space: normal;">
+        <div class="container">
+            <i class="bx bx-menu sidebarOpen"></i>
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text">Esplora le categorie</h1>
+                    <div class="row">
+                        <div class="col-md-3 col" style="background-color: brown;">
+                            <h3>Seleziona una categoria</h3>
+                            <div class="btn-group-vertical">
+                                <% list.items.forEach(category => { %> 
+                                <button type="button" class="btn btn-primary"><%= category.name %></button>
+                                <% }); %>
+                            </div>
+                        </div>
+                        <div class="col-md-9 col" style="background-color: aquamarine;">
+                            Lista
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <script src="/javascripts/bootstrap.js"></script>
+    <!--Slick Slider js-->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
+    <!--sidebar js-->
+    <script type="text/javascript" src="/javascripts/sidebar.js"></script>
+  </body>

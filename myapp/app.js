@@ -86,13 +86,20 @@ app.get('/homepage', (req, res)=>{
 	})
 	.then(followedArtists => {
 		library.artists = followedArtists;
-		spotifyApi.getCategories({limit: 50}).then(data => {
-			console.log(data.body.categories.items[0].icons);
-		});
 		res.render('index', {user: loggedUser, myItems: library});
 	})
 	.catch(err => {
 		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err});
+	});
+});
+
+app.get('/getCategories', (req, res) => {
+	spotifyApi.getCategories({limit: 50}).then(data => {
+		let catList = data.body.categories;
+		res.render('categories', {user: loggedUser, list: catList});
+	})
+	.catch(err => {
+		res.render('error', {message: 'Errore nel recuperare le categorie di Spotify.', error: err});
 	});
 });
 

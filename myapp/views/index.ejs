@@ -49,14 +49,14 @@
             </li>
             <li>
               <a href="#">
-                  <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                  <span class="text nav-text">Revenue</span>
+                <i class='bx bxs-playlist icon'></i>
+                  <span class="text nav-text">Create</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                  <i class='bx bx-bell icon'></i>
-                  <span class="text nav-text">Notifications</span>
+              <a href="/getCategories">
+                <i class='bx bx-category-alt icon'></i>
+                  <span class="text nav-text">Discover</span>
               </a>
             </li>
             <li>
@@ -129,7 +129,7 @@
                     <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top px-3 py-3">
                     <div class="card-body pt-0">
                       <h5 class="card-text"><%=playlist.name %></h5>
-                      <p style="white-space: normal;"> <%= playlist.description %></p>
+                      <p style="white-space: normal;" class="text-truncate"> <%= playlist.description %></p>
                     </div>
                   </div>
                 </div>
@@ -149,5 +149,7 @@
     <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
     <!--sidebar js-->
     <script type="text/javascript" src="/javascripts/sidebar.js"></script>
+    <!-- controller js-->
+    <script type="text/javascript" src="/javascripts/controller.js"></script>
   </body>
 </html>
