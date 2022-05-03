@@ -94,12 +94,20 @@ app.get('/homepage', (req, res)=>{
 });
 
 app.get('/getCategories', (req, res) => {
-	spotifyApi.getCategories({limit: 50}).then(data => {
+	spotifyApi.getCategories({limit: 50, country: 'IT'}).then(data => {
 		let catList = data.body.categories;
 		res.render('categories', {user: loggedUser, list: catList});
 	})
 	.catch(err => {
 		res.render('error', {message: 'Errore nel recuperare le categorie di Spotify.', error: err});
+	});
+});
+
+app.get('/searchPlaylists/:id', (req, res)=>{
+	let id = req.params.id;
+	spotifyApi.getPlaylistsForCategory(id, {country: 'IT'})
+	.then(data => {
+		res.send(data.body.playlists);
 	});
 });
 

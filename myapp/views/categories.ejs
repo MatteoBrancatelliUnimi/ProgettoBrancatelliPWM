@@ -107,15 +107,15 @@
                 <div class="card-body">
                     <h1 class="text">Esplora le categorie</h1>
                     <div class="row">
-                        <div class="col-md-3 col" style="background-color: brown;">
+                        <div class="col-md-3 col">
                             <h3>Seleziona una categoria</h3>
-                            <div class="btn-group-vertical">
+                            <div class="btn-group-vertical mx-auto d-grid">
                                 <% list.items.forEach(category => { %> 
-                                <button type="button" class="btn btn-primary"><%= category.name %></button>
+                                <button type="button" class="btn btn-primary my-2 rounded" onclick="searchPlaylist('<%= category.id %>')"><%= category.name %></button>
                                 <% }); %>
                             </div>
                         </div>
-                        <div class="col-md-9 col" style="background-color: aquamarine;">
+                        <div id="catList" class="col-md-9 col" style="background-color: aquamarine;">
                             Lista
                         </div>
                     </div>
@@ -135,4 +135,5 @@
     <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
     <!--sidebar js-->
     <script type="text/javascript" src="/javascripts/sidebar.js"></script>
+    <script type="text/javascript" src="/javascripts/controller.js"></script>
   </body>
