@@ -13,9 +13,10 @@ function searchPlaylist(categoryID){
             let cardBody = document.createElement('div');
             let title = document.createElement('h5');
             let description = document.createElement('p');
+            let btn = document.createElement('a');
 
-            cols.setAttribute('class', 'col-sm-12 col-lg-3 col-md-6 my-3 mx-auto');
-            card.setAttribute('class', 'card h-100 mx-auto');
+            cols.setAttribute('class', 'col-sm-12 col-lg-4 col-md-6 my-3 mx-auto');
+            card.setAttribute('class', 'card h-100 mx-auto hs');
             card.setAttribute('style', 'max-width: 16rem;');
             cover.setAttribute('src', playlist.images[0].url);
             cover.setAttribute('alt', 'Playlist cover');
@@ -23,12 +24,16 @@ function searchPlaylist(categoryID){
             cardBody.setAttribute('class', 'card-body pt-0');
             title.setAttribute('class', 'card-text fw-500');
             description.setAttribute('class', 'text-truncate fw-300');
+            btn.setAttribute('href', '/more/'+playlist.id);
+            btn.setAttribute('class', 'btn btn-primary');
 
             title.innerText = playlist.name;
             description.innerText = playlist.description;
+            btn.innerText = 'More';
 
             cardBody.appendChild(title);
             cardBody.appendChild(description);
+            cardBody.appendChild(btn);
             card.appendChild(cover);
             card.appendChild(cardBody);
             cols.appendChild(card);

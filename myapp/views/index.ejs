@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <!--Custom CSS-->
     <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/sidebar.css">
     <!--Slick Slider-->
     <link rel="stylesheet" type="text/css" href="/slick/slick.css"/>
@@ -125,7 +126,7 @@
               <div class="row mx-auto">
                 <% myItems.playlists.items.forEach(playlist => { %>
                 <div class="col-sm-12 col-lg-3 col-md-6 my-3 mx-auto">
-                  <div class="card h-100 mx-auto" style="max-width: 16rem;">
+                  <div class="card h-100 mx-auto hs" style="max-width: 16rem;">
                     <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top px-3 py-3">
                     <div class="card-body pt-0">
                       <h5 class="card-text"><%=playlist.name %></h5>

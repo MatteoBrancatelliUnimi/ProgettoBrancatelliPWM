@@ -118,6 +118,16 @@
                                 <% }); %>
                             </div>
                         </div>
+                        <div class="col" id="categoryList"> 
+                            <select class="form-select" aria-label="Choose category">
+                                <% list.items.forEach((category, index) => { %> 
+                                <% if(index == 0){ %> 
+                                <option selected><%= category.name %></option>
+                                <% } %>
+                                <option><%= category.name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
                         <div class="col-md-9 col">
                             <div class="row mx-auto" id="container"> 
                                 <h3 class="text mx-auto my-auto">Seleziona una categoria per visualizzarne le playlist</h3>
