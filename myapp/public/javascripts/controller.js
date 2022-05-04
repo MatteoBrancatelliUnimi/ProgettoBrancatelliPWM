@@ -21,8 +21,8 @@ function searchPlaylist(categoryID){
             cover.setAttribute('alt', 'Playlist cover');
             cover.setAttribute('class', 'card-img-top px-3 py-3');
             cardBody.setAttribute('class', 'card-body pt-0');
-            title.setAttribute('class', 'card-text');
-            description.setAttribute('class', 'text-truncate');
+            title.setAttribute('class', 'card-text fw-500');
+            description.setAttribute('class', 'text-truncate fw-300');
 
             title.innerText = playlist.name;
             description.innerText = playlist.description;

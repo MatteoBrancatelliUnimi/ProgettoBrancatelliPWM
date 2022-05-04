@@ -105,17 +105,20 @@
             <i class="bx bx-menu sidebarOpen"></i>
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text">Esplora le categorie</h1>
+                    <!--hero section-->
+                    <div class="px-4 py-5 mt-5 mb-auto text-center">
+                        <h1 class="display-5 fw-bold">Esplora Playlist</h1>
+                    </div>
+                    <!--end hero section-->
                     <div class="row">
                         <div class="col-md-3 col">
-                            <h3>Seleziona una categoria</h3>
                             <div class="btn-group-vertical mx-auto d-grid">
                                 <% list.items.forEach(category => { %> 
                                 <button type="button" class="btn btn-primary my-2 rounded" onclick="searchPlaylist('<%= category.id %>')"><%= category.name %></button>
                                 <% }); %>
                             </div>
                         </div>
-                        <div class="col-md-9 col" style="background-color: aquamarine;">
+                        <div class="col-md-9 col">
                             <div class="row mx-auto" id="container"> 
                                 <h3 class="text mx-auto my-auto">Seleziona una categoria per visualizzarne le playlist</h3>
                             </div>

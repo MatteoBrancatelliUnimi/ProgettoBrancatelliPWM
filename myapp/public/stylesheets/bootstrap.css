@@ -4259,6 +4259,10 @@ textarea.form-control-lg {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+.card:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  cursor: pointer;
+}
 .card > hr {
   margin-right: 0;
   margin-left: 0;
