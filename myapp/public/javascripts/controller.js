@@ -1,7 +1,7 @@
 function searchPlaylist(categoryID){
     const list = document.getElementById('container');
-    const slct = document.getElementById(categoryID);
-    slct.setAttribute('selected', true);
+    document.querySelector('select option[value="'+categoryID+'"]').setAttribute('selected', true);
+
     fetch('/searchPlaylists/'+categoryID).then(response => {
         return response.json();
     })
@@ -43,3 +43,4 @@ function searchPlaylist(categoryID){
         });
     });
 }
+

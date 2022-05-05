@@ -120,12 +120,12 @@
                             </div>
                         </div>
                         <div class="col-12 mb-4" id="categoryList"> 
-                            <select id="slct" class="form-select" aria-label="Choose category">
+                            <select id="slct" class="form-select" aria-label="Choose category" onchange="searchPlaylist(this.value)">
                                 <% list.items.forEach((category, index) => { %> 
                                 <% if(index == 0){ %> 
-                                <option selected id="<%= category.id %>"><%= category.name %></option>
+                                <option value="<%= category.id %>"><%= category.name %></option>
                                 <% } %>
-                                <option id="<%= category.id %>"><%= category.name %></option>
+                                <option value="<%= category.id %>"><%= category.name %></option>
                                 <% }); %>
                             </select>
                         </div>
