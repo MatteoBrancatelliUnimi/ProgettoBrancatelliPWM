@@ -10,6 +10,7 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/sidebar.css">
+    <link rel="stylesheet" href="/stylesheets/categories.css">
     <!--Slick Slider-->
     <link rel="stylesheet" type="text/css" href="/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css"/>
@@ -111,24 +112,24 @@
                     </div>
                     <!--end hero section-->
                     <div class="row">
-                        <div class="col-md-3 col">
+                        <div class="col-md-3 col" id="catButtons">
                             <div class="btn-group-vertical mx-auto d-grid">
                                 <% list.items.forEach(category => { %> 
                                 <button type="button" class="btn btn-primary my-2 rounded" onclick="searchPlaylist('<%= category.id %>')"><%= category.name %></button>
                                 <% }); %>
                             </div>
                         </div>
-                        <div class="col" id="categoryList"> 
-                            <select class="form-select" aria-label="Choose category">
+                        <div class="col-12 mb-4" id="categoryList"> 
+                            <select id="slct" class="form-select" aria-label="Choose category">
                                 <% list.items.forEach((category, index) => { %> 
                                 <% if(index == 0){ %> 
-                                <option selected><%= category.name %></option>
+                                <option selected id="<%= category.id %>"><%= category.name %></option>
                                 <% } %>
-                                <option><%= category.name %></option>
+                                <option id="<%= category.id %>"><%= category.name %></option>
                                 <% }); %>
                             </select>
                         </div>
-                        <div class="col-md-9 col">
+                        <div class="col">
                             <div class="row mx-auto" id="container"> 
                                 <h3 class="text mx-auto my-auto">Seleziona una categoria per visualizzarne le playlist</h3>
                             </div>

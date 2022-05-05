@@ -1,0 +1,6 @@
+#categoryList{display: none;}
+
+@media screen and (max-width: 1400px) {
+    #categoryList{display: block;}
+    #catButtons{display: none;}
+}
