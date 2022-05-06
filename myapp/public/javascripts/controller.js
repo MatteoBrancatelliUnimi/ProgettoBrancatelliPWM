@@ -17,7 +17,7 @@ function searchPlaylist(categoryID){
             let description = document.createElement('p');
             let btn = document.createElement('a');
 
-            cols.setAttribute('class', 'col-sm-12 col-lg-4 col-md-6 my-3 mx-auto');
+            cols.setAttribute('class', 'col-sm-12 col-lg-4 col-md-6 my-3');
             card.setAttribute('class', 'card h-100 mx-auto hs');
             card.setAttribute('style', 'max-width: 16rem;');
             cover.setAttribute('src', playlist.images[0].url);

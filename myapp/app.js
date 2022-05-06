@@ -111,6 +111,17 @@ app.get('/searchPlaylists/:id', (req, res)=>{
 	});
 });
 
+app.get('/more/:idPlaylist', (req, res)=>{
+	var idPlaylist = req.params.idPlaylist;
+	spotifyApi.getPlaylist(idPlaylist).then(data => {
+		console.log(data.body.tracks.items[0].track.name);
+		res.render('item', {user: loggedUser, playlist: data.body});
+	})
+	.catch(err => {
+		res.render('error', {message: 'Errore nel recuperare la playlist.', error: err});
+	});
+});
+
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
 	var port = server.address().port;
