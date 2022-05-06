@@ -23,12 +23,14 @@ openSidebar.addEventListener("click" , () =>{
 
 //dark/light mode handler
 modeSwitch.addEventListener("click" , () =>{
-body.classList.toggle("dark");
 
-if(body.classList.contains("dark")){
-  modeText.innerText = "Light mode";
-}else{
-  modeText.innerText = "Dark mode";
-  
-}
+  body.classList.toggle("dark");
+
+  if(body.classList.contains("dark")){
+    modeText.innerText = "Light mode";
+  }else{
+    modeText.innerText = "Dark mode";
+    
+  }
 });
+
