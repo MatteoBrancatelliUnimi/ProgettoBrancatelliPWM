@@ -122,10 +122,10 @@
             <!--end hero section-->
             <div class="px-4 py-5">
               <h3>Playlist salvate</h3>
-              <div class="row mx-auto">
+              <div class="row mx-auto justify-content-evenly d-flex">
                 <% myItems.playlists.items.forEach(playlist => { %>
-                <div class="col-sm-12 col-lg-3 col-md-6 my-3 mx-auto">
-                  <div class="card h-100 mx-auto hs" style="max-width: 16rem;">
+                <div class="col-sm-12 col-xlg-3 col-lg-4 col-md-6 my-3">
+                  <div class="card h-100 hs" style="max-width: 16rem;">
                     <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top px-3 py-3">
                     <div class="card-body pt-0">
                       <h5 class="card-text"><%=playlist.name %></h5>

@@ -24,7 +24,12 @@ openSidebar.addEventListener("click" , () =>{
 //dark/light mode handler
 modeSwitch.addEventListener("click" , () =>{
 
-  body.classList.toggle("dark");
+  if(body.classList.contains('dark')){
+    lightMode();
+  }else{
+    darkMode();
+  }
+  //body.classList.toggle("dark");
 
   if(body.classList.contains("dark")){
     modeText.innerText = "Light mode";
@@ -34,3 +39,20 @@ modeSwitch.addEventListener("click" , () =>{
   }
 });
 
+var darkmode = localStorage.getItem('darkmode');
+if(darkmode == 'yes'){
+  darkMode();
+}else{
+  lightMode();
+}
+
+function darkMode(){
+  document.getElementsByTagName('body')[0].className = 'dark';
+  modeText.innerText = 'Light mode';
+  localStorage.setItem('darkmode', 'yes');
+}
+function lightMode(){
+  document.getElementsByTagName('body')[0].className = '';
+  modeText.innerText = 'Dark mode';
+  localStorage.setItem('darkmode', 'no');
+}
