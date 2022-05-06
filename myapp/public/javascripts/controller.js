@@ -44,3 +44,11 @@ function searchPlaylist(categoryID){
     });
 }
 
+//Save playlist in user library
+function savePlaylist(id){
+    fetch('/savePlaylist/'+id).then(response => {
+        return response.json;
+    }).then(data => {
+        console.log(data);
+    });
+}

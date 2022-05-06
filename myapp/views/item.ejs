@@ -112,8 +112,10 @@
                   <h1 class="display-4 fw-bold lh-1"><%= playlist.name %></h1>
                   <p class="lead"><%= playlist.description %></p>
                   <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+                    <a onclick="savePlaylist('<%= playlist.id %>')" id="addButton" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
+                      <i class="bx bx-heart" id='addIcon'></i>
+                      <span id="">Salva</span>
+                    </a>
                   </div>
                 </div>
                 <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
@@ -148,7 +150,7 @@
                                     <p class="text-truncate fw-200"><%= names %></p>
                                 </div>
                             </div></td>
-                            <td class="text-truncate px-4"><%= el.track.album.name %></td>
+                            <td><div class="text-truncate" style="max-width: 30rem;"><span class="text-truncate px-4"><%= el.track.album.name %></span></div></td>
                             <% function millisToMinutesAndSeconds(millis) { %>
                             <% var minutes = Math.floor(millis / 60000); %>
                             <% var seconds = ((millis % 60000) / 1000).toFixed(0); %>
@@ -166,6 +168,22 @@
       </div>
     </section>
 
+
+    <!--Popup to show when user save playlist-->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="/images/spotify-logo-24.png" class="rounded me-2" alt="...">
+          <strong class="me-auto">Salvata!</strong>
+          <small>now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Playlist correttamente salvata nella tua libreria Spotify
+        </div>
+      </div>
+    </div>
+    <!--end popup-->
     <script src="/javascripts/bootstrap.js"></script>
     <!--Slick Slider js-->
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
