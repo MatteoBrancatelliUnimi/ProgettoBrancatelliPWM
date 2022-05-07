@@ -114,8 +114,14 @@ app.get('/searchPlaylists/:id', (req, res)=>{
 app.get('/more/:idPlaylist', (req, res)=>{
 	var idPlaylist = req.params.idPlaylist;
 	spotifyApi.getPlaylist(idPlaylist).then(data => {
+		isInMyLibrary(idPlaylist, 'playlist').then(result => {
+			if(result){
+				res.render('item', {user: loggedUser, playlist: data.body, isPresent: true});
+			}else{
+				res.render('item', {user: loggedUser, playlist: data.body, isPresent: false});
+			}
+		});
 		//console.log(data.body.tracks.items[0].track.name);
-		res.render('item', {user: loggedUser, playlist: data.body});
 	})
 	.catch(err => {
 		res.render('error', {message: 'Errore nel recuperare la playlist.', error: err});
@@ -131,6 +137,19 @@ app.get('/savePlaylist/:id', (req, res)=>{
 		res.render('error', {message: 'Problema nell\'aggiungere la playlist alla tua libreria. Riprova più tardi.', error: err});
 	});
 });
+
+//return true if an item is saved in user's library, false otherwise
+function isInMyLibrary(id, type){
+	if(type == 'playlist'){
+		return spotifyApi.getUserPlaylists().then(data => {
+			for(i=0; i<data.body.total; i++){
+				if(id === data.body.items[i].id)
+					return true;
+			}
+			return false;
+		});
+	}
+}
 
 var server = app.listen(port, ()=>{
 	var host = server.address().address;

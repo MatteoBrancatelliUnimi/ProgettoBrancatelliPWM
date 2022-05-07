@@ -49,6 +49,13 @@ function savePlaylist(id){
     fetch('/savePlaylist/'+id).then(response => {
         return response.json;
     }).then(data => {
-        console.log(data);
+        let icon = document.getElementById('addIcon');
+        let text = document.getElementById('addText');
+        icon.classList.remove('bx-heart');
+        icon.classList.add('bxs-heart');
+
+        text.innerText = 'Salvata!';
+        render('login');
+
     });
 }
