@@ -112,15 +112,39 @@
         <i class="bx bx-menu sidebarOpen"></i>
         <div class="card">
           <div class="card-body">
-            <div class="col-xs-4 mx-auto">
-              <label for="exampleDataList" class="form-label">Datalist example</label>
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-              <datalist id="datalistOptions">
-                
-              </datalist>
-              <button class="btn btn-primary" onclick="selectArtist()">Seleziona</button>
+            <!--hero section-->
+            <div class="px-4 py-3 mt-5 mb-auto text-center">
+              <h1 class="display-5 fw-bold">Playlist Generator</h1>
+              <div class="col-lg-6 mx-auto">
+                <div>
+                  <p class="lead mb-4" style="white-space: normal;">Seleziona un massimo di 3 artisti su cui basare la tua playlist. Modifica i parametri per rendere la tua playlist unica.</p>
+                </div>
+              </div>
             </div>
+            <!--end hero section-->
+            <div class="px-4 py-5">
+              <div class="row g-3">
+                <div class="col-auto col-md-10">
+                  <label for="exampleDataList" class="form-label visually-hidden">Datalist example</label>
+                  <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                  <datalist id="datalistOptions"></datalist>
+                </div>
+                <div class="col-auto col-md-2">
+                  <button type="submit" class="btn btn-primary" onclick="selectArtist()">Seleziona</button>
+                </div>
+              </div>
+              <!--Selected items section-->
+              <div class="row g-3">
+                <div class="col-12 my-3 px-2 py-4">
+                  <h3 class='text-center' id="msg">Non hai selezionato alcun artista</h3>
+                  <ul class="list-group list-group-flush" id="selectedArtists">
 
+                  </ul>
+                </div>
+              </div>
+              <hr>
+              <!--End selected item section-->
+            </div>
           </div>
         </div>
       </div>
@@ -151,17 +175,44 @@
       });
     }); 
     
-    input.addEventListener('change', (event)=>{
+    input.addEventListener('change', ()=>{
       document.activeElement.blur();
     });
   });
   function selectArtist(){
       const input = document.getElementById('exampleDataList');
-      let artist = input.value;
-      alert(artist);
+      const dl = document.getElementById('datalistOptions');
+      const list = document.getElementById('selectedArtists');
+      var opt = document.querySelectorAll('option[value="'+input.value+'"]');
+      var child = dl.lastElementChild;
+
+
+      while(child){
+          dl.removeChild(child);
+          child = dl.lastElementChild;
+      }
+      var artist = opt[0].id;
       input.value = '';
+      fetch('/getArtist/'+artist).then(results => {
+        return results.json();
+      }).then(data => {
+        document.getElementById('msg').classList.add('d-none');
+        let el = document.createElement('li');
+        let closeBtn = document.createElement('button');
+
+        el.setAttribute('class', 'list-group-item');
+        el.innerText = data.name;
+        list.appendChild(el);
+
+        closeBtn.setAttribute('type', 'button');
+        closeBtn.setAttribute('class', 'btn-close float-end');
+        closeBtn.setAttribute('aria-label', 'Close');
+        el.appendChild(closeBtn);
+      });
     }
 </script>
 <script src="/javascripts/bootstrap.js"></script>
+    <!--sidebar js-->
+    <script type="text/javascript" src="/javascripts/sidebar.js"></script>
   </body>
 </html>

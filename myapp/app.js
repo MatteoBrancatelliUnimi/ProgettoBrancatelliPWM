@@ -162,6 +162,12 @@ app.get('/search/:filter', (req, res)=>{
 	});
 });
 
+app.get('/getArtist/:id', (req, res)=>{
+	let id = req.params.id;
+	spotifyApi.getArtist(id).then(data => {
+		res.send(data.body);
+	});
+});
 
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
