@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= user.me.id %></title>
+    <title>Crea la tua playlist</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8"> 
 
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <!--Custom CSS-->
-    <link rel="stylesheet" href="/stylesheets/index.css">
+    <!--<link rel="stylesheet" href="/stylesheets/item.css">-->
     <link rel="stylesheet" href="/stylesheets/style.css">
     <!--Slick Slider-->
     <link rel="stylesheet" type="text/css" href="/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css"/>
     <!--boxicons css-->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-  </head>
+    <style>
+        .swiper {
+  width: 600px;
+  height: 300px;
+}
+    </style>
+    </head>
   <body>
     
     <!--SIDEBAR-->
@@ -48,7 +54,7 @@
               </a>
             </li>
             <li>
-              <a href="/create">
+              <a href="#">
                 <i class='bx bxs-playlist icon'></i>
                   <span class="text nav-text">Create</span>
               </a>
@@ -106,50 +112,56 @@
         <i class="bx bx-menu sidebarOpen"></i>
         <div class="card">
           <div class="card-body">
-            <!--hero section-->
-            <div class="px-4 py-5 mt-5 mb-auto text-center">
-              <h1 class="display-5 fw-bold">Benvenuto in Playlitic</h1>
-              <div class="col-lg-6 mx-auto">
-                <div>
-                  <p class="lead mb-4" style="white-space: normal;">Playlitic è un'applicazione web che ti permette di creare playlist personalizzate e in base alla tua attività musicale sul tuo account Spotify. Inizia subito a creare la playlist perfetta per te.</p>
-                </div>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                  <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Crea Playlist</button>
-                  <a href="/getCategories" class="btn btn-outline-secondary btn-lg px-4">Esplora</a>
-                </div>
-              </div>
+            <div class="col-xs-4 mx-auto">
+              <label for="exampleDataList" class="form-label">Datalist example</label>
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+              <datalist id="datalistOptions">
+                
+              </datalist>
+              <button class="btn btn-primary" onclick="selectArtist()">Seleziona</button>
             </div>
-            <!--end hero section-->
-            <div class="px-4 py-5">
-              <h3>Playlist salvate</h3>
-              <div class="row mx-auto justify-content-start d-flex mx-auto">
-                <% myItems.playlists.items.forEach(playlist => { %>
-                <div class="col-sm-12 col-xlg-3 col-lg-4 col-md-6 my-3">
-                  <div class="card h-100 hs mx-auto" style="max-width: 16rem;">
-                    <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top px-3 py-3">
-                    <div class="card-body pt-0">
-                      <h5 class="card-text"><%=playlist.name %></h5>
-                      <p style="white-space: normal;" class="text-truncate"> <%= playlist.description %></p>
-                    </div>
-                  </div>
-                </div>
-                <% }); %>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
     </section>
-
-    <script src="/javascripts/bootstrap.js"></script>
-    <!--Slick Slider js-->
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="/slick/slick.min.js"></script>
-    <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
-    <!--sidebar js-->
-    <script type="text/javascript" src="/javascripts/sidebar.js"></script>
-    <!-- controller js-->
-    <script type="text/javascript" src="/javascripts/controller.js"></script>
+    
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const input = document.getElementById('exampleDataList');
+    let dl = document.getElementById('datalistOptions');
+    input.addEventListener('keyup', () => {
+      //dl.innerHTML = '';
+      var filter = input.value;
+      fetch('/search/'+filter).then(results => {
+        return results.json();
+      })
+      .then(data => {
+        let child = dl.lastElementChild;
+        while(child){
+          dl.removeChild(child);
+          child = dl.lastElementChild;
+        }
+        data.items.forEach(result => {
+          let option = document.createElement('option');
+          option.setAttribute('value', result.name);
+          option.setAttribute('id', result.id);
+          dl.appendChild(option);
+        });
+      });
+    }); 
+    
+    input.addEventListener('change', (event)=>{
+      document.activeElement.blur();
+    });
+  });
+  function selectArtist(){
+      const input = document.getElementById('exampleDataList');
+      let artist = input.value;
+      alert(artist);
+      input.value = '';
+    }
+</script>
+<script src="/javascripts/bootstrap.js"></script>
   </body>
 </html>

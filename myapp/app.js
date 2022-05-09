@@ -151,6 +151,16 @@ function isInMyLibrary(id, type){
 	}
 }
 
+app.get('/create', (req,res)=>{
+	res.render('create', {user: loggedUser});
+});
+
+app.get('/search/:filter', (req, res)=>{
+	let filter = req.params.filter;
+	spotifyApi.search(filter, ['artist'],{limit: 10}).then(results => {
+		res.send(results.body.artists);
+	});
+});
 
 
 var server = app.listen(port, ()=>{
