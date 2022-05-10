@@ -169,6 +169,25 @@ app.get('/getArtist/:id', (req, res)=>{
 	});
 });
 
+app.get('/createPlaylist/:data', (req, res)=>{
+	let input = JSON.parse(req.params.data);
+	var id = '', playlistTracks = [];
+	spotifyApi.createPlaylist(input.title, {description: input.description, collaborative: false, public: input.isPublic}).then(data => {
+		id = data.body.id; //ID of the playlist
+		console.log('Sono qui' + input); 
+		return spotifyApi.getRecommendations({'seed_artists': input.artists, limit: input.numEl}).then(response => {
+			return response.body;
+		}).catch(err => {
+			res.render('error', {message: 'Il problema è in getRecommendations', error: err});
+		});
+	}).then(results => {
+		console.log(results);
+		res.send(results);
+	}).catch(err => {
+		res.render('error', {message: 'Il problema è in createPlaylist', error: err});
+	});;
+}); 
+
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
 	var port = server.address().port;

@@ -29,7 +29,7 @@
       <header>
         <div class="image-text">
           <span class="image">
-            <img src="<%= user.me.images[0].url %>" alt="Profile pic">
+            
           </span>
           <div class="text logo-text">
             <span class="name">Ciao</span>
@@ -146,18 +146,30 @@
               <!--End selected item section-->
               <div class="row gap-3">
                 <div class="col-sm-12">
-                  <label for="customRange1" class="form-label">Da quante canzoni sarà composta?</label><span id='rangeValue' class="float-end">50</span>
-                  <input type="range" class="form-range" value="50" min="10" max="100" id="customRange1" onchange="updateTextValue(this.value)">
+                  <label for="numEl" class="form-label">Da quante canzoni sarà composta?</label><span id='rangeValue' class="float-end">50</span>
+                  <input type="range" class="form-range" value="50" min="10" max="100" id="numEl" onchange="updateTextValue(this.value)">
+                </div>
+                <div class="col-sm-12">
+                  <label for="titleInput" class="form-label">Aggiungi un titolo</label>
+                  <input type="text" class="form-control" id="titleInput">
+                </div>
+                <div class="col-sm-12">
+                  <label for="descriptionTextArea" class="form-label">Aggiungi una descrizione</label>
+                  <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
+                </div>
+                <div class="col-sm-12">
+                  <label for="coverImg" class="form-label">Inserisci un'immagine di copertina (opzionale)</label>
+                  <input class="form-control" type="file" id="coverImg" accept="image/png, image/jpg, image/jpeg">
                 </div>
                 <div class="col-sm">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Voglio rendere la mia playlist pubblica</label>
+                  <div class="form-check">
+                    <input class="form-check-input" value='false' type="checkbox" id="isPublic">
+                    <label class="form-check-label" for="isPublic">Voglio rendere la mia playlist pubblica</label>
                   </div>
                 </div>
               </div>
               <div class="col-auto my-3">
-                <button id="btnCreate" class="btn btn-primary disabled">Crea </button>
+                <button id="btnCreate" class="btn btn-primary disabled" onclick="generatePlaylist()">Crea </button>
               </div>
             </div>
           </div>
@@ -219,6 +231,7 @@
           let closeBtn = document.createElement('button');
 
           el.setAttribute('class', 'list-group-item');
+          el.setAttribute('id', data.uri);
           el.innerText = data.name;
           list.appendChild(el);
 
@@ -229,7 +242,7 @@
           el.appendChild(closeBtn);
 
           //Create button is now clickable
-          document.getElementById('btnCreate').classList.toggle('disabled');
+          document.getElementById('btnCreate').classList.remove('disabled');
         });
       }
 
@@ -251,8 +264,42 @@
           }
         }
 
-        artists.length == 0 ? document.getElementById('msg').classList.toggle('d-none') : true;
-        document.getElementById('btnCreate').classList.toggle('disabled');
+        if(artists.length == 0){
+          document.getElementById('msg').classList.toggle('d-none');
+          document.getElementById('btnCreate').classList.add('disabled');
+        }
+    }
+
+    function generatePlaylist(){
+      //get playlist parameters
+      var title = document.getElementById('titleInput').value,
+      description = document.getElementById('descriptionTextArea').value,
+      numEl = parseInt(document.getElementById('numEl').value),
+      isPublic = document.getElementById('isPublic').checked,
+      img = document.getElementById('coverImg').value;
+
+      var artists = [];
+      var lista = document.getElementById('selectedArtists').getElementsByTagName('li');
+      var length = lista.length;
+      for(i=0; i<length; i++){
+        artists.push(lista[i].id);
+      }
+
+      let data = {
+        title: title,
+        description: description,
+        numEl: numEl,
+        isPublic: isPublic,
+        img: img,
+        artists: artists
+      };
+      fetch('/createPlaylist/'+JSON.stringify(data)).then(response => {
+        return JSON.parse(response);
+      }).then(data => {
+        alert(data);
+      }); 
+
+
     }
 </script>
 <script src="/javascripts/bootstrap.js"></script>
