@@ -144,6 +144,21 @@
               </div>
               <hr>
               <!--End selected item section-->
+              <div class="row gap-3">
+                <div class="col-sm-12">
+                  <label for="customRange1" class="form-label">Da quante canzoni sarà composta?</label><span id='rangeValue' class="float-end">50</span>
+                  <input type="range" class="form-range" value="50" min="10" max="100" id="customRange1" onchange="updateTextValue(this.value)">
+                </div>
+                <div class="col-sm">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Voglio rendere la mia playlist pubblica</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto my-3">
+                <button id="btnCreate" class="btn btn-primary disabled">Crea </button>
+              </div>
             </div>
           </div>
         </div>
@@ -174,41 +189,70 @@
         });
       });
     }); 
-    
+
     input.addEventListener('change', ()=>{
       document.activeElement.blur();
     });
   });
   function selectArtist(){
+
       const input = document.getElementById('exampleDataList');
       const dl = document.getElementById('datalistOptions');
       const list = document.getElementById('selectedArtists');
       var opt = document.querySelectorAll('option[value="'+input.value+'"]');
       var child = dl.lastElementChild;
 
-
-      while(child){
+      if(list.getElementsByTagName('li').length == 3){
+        alert('Nope');
+      }else{
+        while(child){
           dl.removeChild(child);
           child = dl.lastElementChild;
+        }
+        var artist = opt[0].id;
+        input.value = '';
+        fetch('/getArtist/'+artist).then(results => {
+          return results.json();
+        }).then(data => {
+          document.getElementById('msg').classList.add('d-none');
+          let el = document.createElement('li');
+          let closeBtn = document.createElement('button');
+
+          el.setAttribute('class', 'list-group-item');
+          el.innerText = data.name;
+          list.appendChild(el);
+
+          closeBtn.setAttribute('type', 'button');
+          closeBtn.setAttribute('class', 'btn-close float-end');
+          closeBtn.setAttribute('aria-label', 'Close');
+          closeBtn.setAttribute('onclick', 'removeArtist(this.parentNode)');
+          el.appendChild(closeBtn);
+
+          //Create button is now clickable
+          document.getElementById('btnCreate').classList.toggle('disabled');
+        });
       }
-      var artist = opt[0].id;
-      input.value = '';
-      fetch('/getArtist/'+artist).then(results => {
-        return results.json();
-      }).then(data => {
-        document.getElementById('msg').classList.add('d-none');
-        let el = document.createElement('li');
-        let closeBtn = document.createElement('button');
 
-        el.setAttribute('class', 'list-group-item');
-        el.innerText = data.name;
-        list.appendChild(el);
+    }
 
-        closeBtn.setAttribute('type', 'button');
-        closeBtn.setAttribute('class', 'btn-close float-end');
-        closeBtn.setAttribute('aria-label', 'Close');
-        el.appendChild(closeBtn);
-      });
+    function updateTextValue(val){
+      document.getElementById('rangeValue').textContent = val;
+    }
+
+    function removeArtist(el){
+        var artists = document.getElementById('selectedArtists').getElementsByTagName('li');
+        var length = artists.length;
+
+        for(i=0; i<length; i++){
+          console.log(artists[i]);
+          if(artists[i].innerText == el.innerText){
+            artists[i].remove();
+            break;
+          }
+        }
+
+        artists.length == 0 ? document.getElementById('msg').classList.toggle('d-none') : true;
+        document.getElementById('btnCreate').classList.toggle('disabled');
     }
 </script>
 <script src="/javascripts/bootstrap.js"></script>
