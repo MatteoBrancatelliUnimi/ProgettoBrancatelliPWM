@@ -172,20 +172,29 @@ app.get('/getArtist/:id', (req, res)=>{
 app.get('/createPlaylist/:data', (req, res)=>{
 	let input = JSON.parse(req.params.data);
 	var id = '', playlistTracks = [];
-	spotifyApi.createPlaylist(input.title, {description: input.description, collaborative: false, public: input.isPublic}).then(data => {
-		id = data.body.id; //ID of the playlist
-		console.log('Sono qui' + input); 
-		return spotifyApi.getRecommendations({'seed_artists': input.artists, limit: input.numEl}).then(response => {
-			return response.body;
+
+	spotifyApi.createPlaylist(input.title, {'description':input.description, 'public':input.isPublic}).then(data => {
+		console.log(input.artists);
+		return id = data.body.id;
+	}).then(id => {
+		return spotifyApi.getRecommendations({'limit': input.numEl, 'seed_artists': input.artists}).then(data => {
+			let tracks = data.body.tracks;
+			tracks.forEach(track => {
+				playlistTracks.push(track.uri);
+			}); 
+			return playlistTracks;
 		}).catch(err => {
-			res.render('error', {message: 'Il problema è in getRecommendations', error: err});
+			console.log('Errore nel recuperare il contenuto ' + err);
 		});
-	}).then(results => {
-		console.log(results);
-		res.send(results);
+	}).then(array => {
+		spotifyApi.addTracksToPlaylist(id, array).then(data => {
+			res.send(data);
+		}).catch(err => {
+			console.log('errore nell\'aggiungere le tracce alla playlist');
+		});
 	}).catch(err => {
-		res.render('error', {message: 'Il problema è in createPlaylist', error: err});
-	});;
+		console.log('Errore nel creare la playlist ' + err);
+	});
 }); 
 
 var server = app.listen(port, ()=>{

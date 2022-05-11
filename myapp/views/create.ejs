@@ -231,7 +231,7 @@
           let closeBtn = document.createElement('button');
 
           el.setAttribute('class', 'list-group-item');
-          el.setAttribute('id', data.uri);
+          el.setAttribute('id', data.id);
           el.innerText = data.name;
           list.appendChild(el);
 
@@ -294,9 +294,9 @@
         artists: artists
       };
       fetch('/createPlaylist/'+JSON.stringify(data)).then(response => {
-        return JSON.parse(response);
+        return response;
       }).then(data => {
-        alert(data);
+        console.log(data);
       }); 
 
 
