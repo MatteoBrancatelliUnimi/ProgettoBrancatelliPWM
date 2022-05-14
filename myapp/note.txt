@@ -1,0 +1,129 @@
+function generatePlaylist(){
+      //get playlist parameters
+      var title = document.getElementById('titleInput').value,
+      description = document.getElementById('descriptionTextArea').value,
+      numEl = parseInt(document.getElementById('numEl').value),
+      isPublic = document.getElementById('isPublic').checked;
+      var img = '';
+      //convert img to base64
+      var file = document.getElementById('coverImg').files[0];
+      var reader = new FileReader();
+      reader.onloadend = () => {
+        let string = reader.result.split(',')[1];
+        console.log(string);
+        return string;
+      }
+
+      reader.readAsDataURL(file);
+
+      var artists = [];
+      var lista = document.getElementById('selectedArtists').getElementsByTagName('li');
+      var length = lista.length;
+      for(i=0; i<length; i++){
+        artists.push(lista[i].id);
+      }
+
+      let data = {
+        title: title,
+        description: description,
+        numEl: numEl,
+        isPublic: isPublic,
+        img: img,
+        artists: artists
+      };
+      console.log(data);
+      fetch('/createPlaylist/'+JSON.stringify(data)).then(response => {
+        return response;
+      }).then(data => {
+        console.log(data);
+      }); 
+
+    }
+//////////////////////////////////////////////////////////////////////////
+            <div class="px-4 py-5">
+              <div class="row g-3">
+                <div class="col-auto col-md-10">
+                  <label for="exampleDataList" class="form-label visually-hidden">Datalist example</label>
+                  <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                  <datalist id="datalistOptions"></datalist>
+                </div>
+                <div class="col-auto col-md-2">
+                  <button type="submit" class="btn btn-primary" onclick="selectArtist()">Seleziona</button>
+                </div>
+              </div>
+              <!--Selected items section-->
+              <div class="row g-3">
+                <div class="col-12 my-3 px-2 py-4">
+                  <h3 class='text-center' id="msg">Non hai selezionato alcun artista</h3>
+                  <ul class="list-group list-group-flush" id="selectedArtists">
+
+                  </ul>
+                </div>
+              </div>
+              <hr>
+              <!--End selected item section-->
+              <div class="row gap-3">
+                <div class="col-sm-12">
+                  <label for="numEl" class="form-label">Da quante canzoni sarà composta?</label><span id='rangeValue' class="float-end">50</span>
+                  <input type="range" class="form-range" value="50" min="10" max="100" id="numEl" onchange="updateTextValue(this.value)">
+                </div>
+                <div class="col-sm-12">
+                  <label for="titleInput" class="form-label">Aggiungi un titolo</label>
+                  <input type="text" class="form-control" id="titleInput">
+                </div>
+                <div class="col-sm-12">
+                  <label for="descriptionTextArea" class="form-label">Aggiungi una descrizione</label>
+                  <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
+                </div>
+                <div class="col-sm">
+                  <div class="form-check">
+                    <input class="form-check-input" value='false' type="checkbox" id="isPublic">
+                    <label class="form-check-label" for="isPublic">Voglio rendere la mia playlist pubblica</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto my-3">
+                <button id="btnCreate" class="btn btn-primary disabled" onclick="generatePlaylist()">Crea </button>
+              </div>
+            </div>
+/////////////////////////////////////////////////////////////////////////
+  function selectArtist(elem){
+
+      const dl = document.getElementById('datalistOptions');
+      const list = document.getElementById('selectedArtists');
+      var opt = document.querySelectorAll('option[value="'+input.value+'"]');
+      var child = dl.lastElementChild;
+
+      if(list.getElementsByTagName('li').length == 3){
+        alert('Nope');
+      }else{
+        while(child){
+          dl.removeChild(child);
+          child = dl.lastElementChild;
+        }
+        var artist = opt[0].id;
+        input.value = '';
+        fetch('/getArtist/'+artist).then(results => {
+          return results.json();
+        }).then(data => {
+          document.getElementById('msg').classList.add('d-none');
+          let el = document.createElement('li');
+          let closeBtn = document.createElement('button');
+
+          el.setAttribute('class', 'list-group-item');
+          el.setAttribute('id', data.id);
+          el.innerText = data.name;
+          list.appendChild(el);
+
+          closeBtn.setAttribute('type', 'button');
+          closeBtn.setAttribute('class', 'btn-close float-end');
+          closeBtn.setAttribute('aria-label', 'Close');
+          closeBtn.setAttribute('onclick', 'removeArtist(this.parentNode)');
+          el.appendChild(closeBtn);
+
+          //Create button is now clickable
+          document.getElementById('btnCreate').classList.remove('disabled');
+        });
+      }
+
+    }

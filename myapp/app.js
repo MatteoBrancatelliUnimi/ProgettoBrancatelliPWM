@@ -1,7 +1,9 @@
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
 const path = require('path');
-const scopes = ['user-read-email', 'user-read-private','playlist-read-collaborative','playlist-modify-public','playlist-read-private','playlist-modify-private','user-library-modify','user-library-read','user-top-read', 'user-read-playback-position','user-read-recently-played','user-follow-read','user-follow-modify'];
+const base64url = require('base64url');
+const bodyParser = require('body-parser');
+const scopes = ['ugc-image-upload', 'user-read-email', 'user-read-private','playlist-read-collaborative','playlist-modify-public','playlist-read-private','playlist-modify-private','user-library-modify','user-library-read','user-top-read', 'user-read-playback-position','user-read-recently-played','user-follow-read','user-follow-modify'];
 const client_id = "23305fca54214006893a401bee4acce3";
 const secret = "cb15c9b6c04840079157cda7fbdc3a8c";
 const uri = 'http://127.0.0.1:3000/callback';
@@ -16,6 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
 //set app credentials
 var spotifyApi = new SpotifyWebApi({
 	clientId: client_id,
@@ -157,7 +160,7 @@ app.get('/create', (req,res)=>{
 
 app.get('/search/:filter', (req, res)=>{
 	let filter = req.params.filter;
-	spotifyApi.search(filter, ['artist'],{limit: 10}).then(results => {
+	spotifyApi.search(filter, ['artist'],{limit: 3}).then(results => {
 		res.send(results.body.artists);
 	});
 });
@@ -172,7 +175,7 @@ app.get('/getArtist/:id', (req, res)=>{
 app.get('/createPlaylist/:data', (req, res)=>{
 	let input = JSON.parse(req.params.data);
 	var id = '', playlistTracks = [];
-
+	console.log(input);
 	spotifyApi.createPlaylist(input.title, {'description':input.description, 'public':input.isPublic}).then(data => {
 		console.log(input.artists);
 		return id = data.body.id;
@@ -187,15 +190,20 @@ app.get('/createPlaylist/:data', (req, res)=>{
 			console.log('Errore nel recuperare il contenuto ' + err);
 		});
 	}).then(array => {
-		spotifyApi.addTracksToPlaylist(id, array).then(data => {
-			res.send(data);
+		return spotifyApi.addTracksToPlaylist(id, array).then(data => {
+			return data;
 		}).catch(err => {
 			console.log('errore nell\'aggiungere le tracce alla playlist');
 		});
+	}).then((data)=>{
+		if(data.statusCode === 201){
+			res.send(data);
+		}
 	}).catch(err => {
 		console.log('Errore nel creare la playlist ' + err);
 	});
 }); 
+
 
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
