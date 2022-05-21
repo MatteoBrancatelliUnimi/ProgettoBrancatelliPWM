@@ -8,11 +8,8 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <!--Custom CSS-->
-    <link rel="stylesheet" href="/stylesheets/index.css">
+    
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <!--Slick Slider-->
-    <link rel="stylesheet" type="text/css" href="/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="/slick/slick-theme.css"/>
     <!--boxicons css-->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   </head>
@@ -31,7 +28,8 @@
           </div>
         </div>
 
-        <i class="bx bx-chevron-right toggle"></i>
+        <i class="bx bx-x toggle-x"></i>
+        <i class="bx bx-chevron-right toggle-arrow"></i>
       </header>
 
       <div class="menu-bar">
@@ -103,8 +101,8 @@
 
     <section class="home" style="white-space: normal;">
       <div class="container">
-        <i class="bx bx-menu sidebarOpen"></i>
         <div class="card">
+          <i class="bx bx-menu sidebarOpen"></i>
           <div class="card-body">
             <!--hero section-->
             <div class="px-4 py-5 mt-5 mb-auto text-center">
@@ -126,9 +124,9 @@
                 <% myItems.playlists.items.forEach(playlist => { %>
                 <div class="col-sm-12 col-xlg-3 col-lg-4 col-md-6 my-3">
                   <div class="card h-100 hs mx-auto" style="max-width: 16rem;">
-                    <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top px-3 py-3">
+                    <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top mb-2">
                     <div class="card-body pt-0">
-                      <h5 class="card-text"><%=playlist.name %></h5>
+                      <h5 class="card-text fw-500"><b><%=playlist.name %></b></h5>
                       <p style="white-space: normal;" class="text-truncate"> <%= playlist.description %></p>
                     </div>
                   </div>
@@ -142,11 +140,6 @@
     </section>
 
     <script src="/javascripts/bootstrap.js"></script>
-    <!--Slick Slider js-->
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="/slick/slick.min.js"></script>
-    <script type="text/javascript" src="/javascripts/sliderHome.js"></script>
     <!--sidebar js-->
     <script type="text/javascript" src="/javascripts/sidebar.js"></script>
     <!-- controller js-->

@@ -1,16 +1,21 @@
 const body = document.querySelector('body'),
 sidebar = body.querySelector('nav'),
-toggle = body.querySelector(".toggle"),
+toggleX = body.querySelector(".toggle-x"),
+toggleA = body.querySelector('.toggle-arrow'),
 searchBtn = body.querySelector(".search-box"),
 modeSwitch = body.querySelector(".toggle-switch"),
 modeText = body.querySelector(".mode-text"),
 openSidebar = body.querySelector('.sidebarOpen');
 
 
-toggle.addEventListener("click" , () =>{
+toggleX.addEventListener("click" , () =>{
 sidebar.classList.toggle("close");
 sidebar.classList.toggle("visible");
 })
+
+toggleA.addEventListener("click", () => {
+  sidebar.classList.toggle('close');
+});
 
 searchBtn.addEventListener("click" , () =>{
 sidebar.classList.remove("close");
