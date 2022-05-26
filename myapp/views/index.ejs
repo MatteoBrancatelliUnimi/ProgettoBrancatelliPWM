@@ -8,10 +8,15 @@
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <!--Custom CSS-->
-    
+    <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <!--boxicons css-->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Slick Slider CSS-->
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
   </head>
   <body>
     
@@ -105,7 +110,7 @@
           <i class="bx bx-menu sidebarOpen"></i>
           <div class="card-body">
             <!--hero section-->
-            <div class="px-4 py-5 mt-5 mb-auto text-center">
+            <div class="px-4 py-4 mt-5 mb-auto text-center">
               <h1 class="display-5 fw-bold">Benvenuto in Playlitic</h1>
               <div class="col-lg-6 mx-auto">
                 <div>
@@ -118,10 +123,7 @@
               </div>
             </div>
             <!--end hero section-->
-            <div class="px-4 py-5">
-              <h3>Playlist salvate</h3>
-              <div class="row mx-auto justify-content-start d-flex mx-auto">
-                <% myItems.playlists.items.forEach(playlist => { %>
+                <!--<% myItems.playlists.items.forEach(playlist => { %>
                 <div class="col-sm-12 col-xlg-3 col-lg-4 col-md-6 my-3">
                   <div class="card h-100 hs mx-auto" style="max-width: 16rem;">
                     <img src="<%=playlist.images[0].url %>" alt="Playlist cover" class="card-img-top mb-2">
@@ -131,7 +133,62 @@
                     </div>
                   </div>
                 </div>
-                <% }); %>
+                <% }); %> -->
+                <!--Icons section-->
+                <section class="features-icons text-center">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                          <div class="features-icons-icon d-flex flex-column">
+                            <i class='bx bx-edit'></i>
+                            <h3>Playlist personalizzate</h3>
+                            <p class="lead mb-0">Facili da creare, clicca sul link per iniziare a creare la tua playlist</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                          <div class="features-icons-icon d-flex flex-column">
+                            <i class='bx bx-category-alt' ></i>
+                            <h3>Esplora le categorie</h3>
+                            <p class="lead mb-0">Filtra la ricerca in base al tuo genere preferito</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                          <div class="features-icons-icon d-flex flex-column">
+                            <i class='bx bx-search-alt' ></i>
+                            <h3>Trova Playlist</h3>
+                            <p class="lead mb-0">E aggiungila subito alla tua libreria Spotify.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!--End feature icons section-->
+
+                <!--User playlists-->
+                <section class="playlists text-center">
+                  <div class="container">
+                    <h2 class="mb-5">Le tue playlists</h2>
+                    <div class="row">
+                      <div class="slider">
+                        <% myItems.playlists.items.forEach(playlist => { %>
+                          <div class="col-lg-4">
+                            <div class="playlists-item mx-auto mb-5 mb-lg-0">
+                              <img src="<%= playlist.images[0].url %>" alt="Cover" class="img-fluid rounded-3 mb-3">
+                              <h5><%= playlist.name %></h5>
+                              <p class="font-weight-light mb-0"><%= playlist.description %></p>
+                            </div>
+                          </div>
+                        <% }); %>
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
@@ -144,5 +201,20 @@
     <script type="text/javascript" src="/javascripts/sidebar.js"></script>
     <!-- controller js-->
     <script type="text/javascript" src="/javascripts/controller.js"></script>
+
+    <!--Slick slider js + JQuery-->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script type="text/javascript">
+      $('.slider').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        arrows: false,
+        dots: true,
+        speed: 1000
+      });
+    </script>
   </body>
 </html>
