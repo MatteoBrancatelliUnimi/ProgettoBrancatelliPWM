@@ -31,7 +31,7 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/login', (req, res)=>{
-	res.redirect(spotifyApi.createAuthorizeURL(scopes));
+	res.send(spotifyApi.createAuthorizeURL(scopes));
 });
 
 //Callback function for Spotify
@@ -55,7 +55,6 @@ app.get('/callback', (req, res)=>{
 		spotifyApi.setAccessToken(access_t);
 		spotifyApi.setRefreshToken(refresh_t);
 		res.redirect('/homepage');
-
 		//Refresh access token
 		setInterval(async () => {
 			let data = await spotifyApi.refreshAccessToken();
@@ -90,6 +89,7 @@ app.get('/homepage', (req, res)=>{
 	.then(followedArtists => {
 		library.artists = followedArtists;
 		res.render('index', {user: loggedUser, myItems: library});
+		//res.send(JSON.stringify({user: loggedUser, myItems: library}));
 	})
 	.catch(err => {
 		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err});

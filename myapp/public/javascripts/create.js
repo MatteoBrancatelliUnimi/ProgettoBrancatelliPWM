@@ -88,8 +88,32 @@ function selectArtist(elem){
         console.log(response);
         response.json();
       }).then(data => {
-        var myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
+        const myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
+        let message = document.getElementById('msgBody'); 
+        message.innerText = 'La playlist è stata creata correttamente. La puoi trovare nella tua libreria!';
         myModal.show();
         console.log(data);
       });
+    }
+
+    function validateForm(){
+      //check if form is correctly submitted
+      const artistsList = document.getElementById('resArtists');
+      const title = document.getElementById('inputTitle');
+      if(!artistsList.hasChildNodes()){
+        createErrorMessage('Devi selezionare almeno un artista!');
+      }else if(title.value === ''){
+        console.log('Sono qui');
+        createErrorMessage('Devi inserire un titolo per la tua playlist!');
+      }else{
+        generatePlaylist();
+      }
+    }
+
+    function createErrorMessage(txt){
+      let msg = document.getElementById('errMsg');
+      msg.style.display = 'block';
+      msg.style.color = 'red';
+      msg.style.fontWeight = '700';
+      msg.innerText = txt;
     }

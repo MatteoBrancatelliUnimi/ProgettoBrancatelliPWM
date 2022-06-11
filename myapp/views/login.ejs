@@ -23,7 +23,7 @@
             <h1>Cover your page.</h1>
             <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
             <p class="lead">
-                <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Login</a>
+                <a href="#" onclick="accedi()" id="login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Login</a>
             </p>
             </main>
         
@@ -32,8 +32,19 @@
             </footer>
         </div>
         <script src="/javascripts/bootstrap.js"></script>
-        <script type="text/javascript">
+        <script>
+            function accedi(){
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = () => {
+                    console.log(xhttp);
+                    if(xhttp.readyState == 4 && xhttp.status == 200)
+                        window.location.href = xhttp.responseText;
+                }
 
+                xhttp.open('GET', '/login', true);
+                xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+                xhttp.send();
+            }
         </script>
     </body>
 </html>

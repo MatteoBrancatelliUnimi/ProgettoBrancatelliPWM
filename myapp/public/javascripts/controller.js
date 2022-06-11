@@ -1,8 +1,8 @@
-function searchPlaylist(categoryID){
+async function searchPlaylist(categoryID){
     const list = document.getElementById('container');
     document.querySelector('select option[value="'+categoryID+'"]').setAttribute('selected', true);
 
-    fetch('/searchPlaylists/'+categoryID).then(response => {
+    await fetch('/searchPlaylists/'+categoryID).then(response => {
         return response.json();
     })
     .then(data => {
@@ -45,9 +45,9 @@ function searchPlaylist(categoryID){
 }
 
 //Save playlist in user library
-function savePlaylist(id){
-    fetch('/savePlaylist/'+id).then(response => {
-        return response.json;
+async function savePlaylist(id){
+    await fetch('/savePlaylist/'+id).then(response => {
+        return response.json();
     }).then(data => {
         let icon = document.getElementById('addIcon');
         let text = document.getElementById('addText');

@@ -36,12 +36,7 @@ modeSwitch.addEventListener("click" , () =>{
   }
   //body.classList.toggle("dark");
 
-  if(body.classList.contains("dark")){
-    modeText.innerText = "Light mode";
-  }else{
-    modeText.innerText = "Dark mode";
-    
-  }
+
 });
 
 var darkmode = localStorage.getItem('darkmode');

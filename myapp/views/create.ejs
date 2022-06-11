@@ -28,7 +28,7 @@
       <header>
         <div class="image-text">
           <span class="image">
-            
+            <img src="<%= user.me.images[0].url %>" alt="Profile pic">
           </span>
           <div class="text logo-text">
             <span class="name">Ciao</span>
@@ -36,7 +36,8 @@
           </div>
         </div>
 
-        <i class="bx bx-chevron-right toggle"></i>
+        <i class="bx bx-x toggle-x"></i>
+        <i class="bx bx-chevron-right toggle-arrow"></i>
       </header>
 
       <div class="menu-bar">
@@ -47,14 +48,14 @@
           </li>
           <ul class="menu-links px-0">
             <li>
-              <a href="#" class="active">
+              <a href="/homepage">
                 <i class="bx bx-home-alt icon"></i>
                 <span class="text nav-text">Homepage</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class='bx bxs-playlist icon'></i>
+              <a href="/create" class="active">
+                <i class='bx bx-list-plus icon'></i>
                   <span class="text nav-text">Create</span>
               </a>
             </li>
@@ -86,7 +87,7 @@
         </div>
         <div class="bottom-content">
           <li>
-            <a href="#">
+            <a href="https://www.spotify.com/it/account/apps/">
               <i class="bx bx-log-out icon"></i>
               <span class="text nav-text">Logout</span>
             </a>
@@ -112,11 +113,14 @@
         <div class="card">
           <div class="card-body">
             <!--hero section-->
-            <div class="px-4 py-3 mt-5 mb-auto text-center">
+            <div class="px-4 py-4 mt-5 mb-auto text-center">
               <h1 class="display-5 fw-bold">Playlist Generator</h1>
               <div class="col-lg-6 mx-auto">
                 <div>
-                  <p class="lead mb-4" style="white-space: normal;">Seleziona un massimo di 3 artisti su cui basare la tua playlist. Modifica i parametri per rendere la tua playlist unica.</p>
+                  <p class="lead mb-4" style="white-space: normal;">
+                  Come funziona il generatore di playlist: seleziona uno o più artisti dal catalogo di Spotify, la playlist sarà creata con brani correlati agli artisti selezionati.
+                  Scegliendo di rendere pubblica la playlist questa sarà visibile a tutti gli utenti di spotify.
+                  </p>
                 </div>
               </div>
             </div>
@@ -144,19 +148,20 @@
                 <input type="text" class="form-control" id="inputTitle" placeholder="Insert a title for your playlist" required>
               </div>
               <div class="col-12">
-                <label for="inputDescription" class="form-label">Descrizione</label>
+                <label for="inputDescription" class="form-label">Descrizione (opzionale)</label>
                 <textarea type="text" class="form-control" id="inputDescription" placeholder="Insert a description for your playlist"></textarea>
               </div>
               <div class="col-12">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="publicCheck">
                   <label class="form-check-label" for="publicCheck">
-                    Rendi pubblica la playlist
+                    Rendi pubblica la playlist 
                   </label>
                 </div>
               </div>
               <div class="col-12">
-                <button type="submit" onclick="generatePlaylist()"  class="btn btn-primary">Crea</button>
+                <button type="submit" onclick="validateForm()"  class="btn btn-primary">Crea</button>
+                <p id="errMsg" style="display:hidden;"></p>
               </div>
             </div>
           </div>
@@ -173,7 +178,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="modalBody">
-        
+        <p id="msgBody"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
