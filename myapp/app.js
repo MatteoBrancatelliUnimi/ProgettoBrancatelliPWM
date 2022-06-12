@@ -26,12 +26,21 @@ var spotifyApi = new SpotifyWebApi({
 	redirectUri: uri
 });
 
-app.get('/', (req, res)=>{
+/*app.get('/', (req, res)=>{
 	res.render('login', {title: 'Playlitic'});
+});*/
+app.get('/', (req, res)=>{
+	res.render('index', {user: loggedUser, myItems: library});
 });
 
 app.get('/login', (req, res)=>{
 	res.send(spotifyApi.createAuthorizeURL(scopes));
+});
+
+app.get('/logout', (req, res)=>{
+	loggedUser = {};
+	library = {};
+	res.send('Cleared');
 });
 
 //Callback function for Spotify

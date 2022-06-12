@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= user.me.id %></title>
+    <% if(user.me === undefined){ %> 
+      <title>Playlitic - Playlist personalizzate</title>
+    <% }else{ %> 
+      <title><%= user.me.id %></title>
+    <% } %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8"> 
 
@@ -24,6 +28,14 @@
     <nav class="sidebar close">
       <header>
         <div class="image-text">
+        <% if(user.me === undefined){ %> 
+          <span class="image">
+            <i class='bx bx-user-circle icon'></i>
+          </span>
+          <div class="text logo-text">
+            <span class="name">Accedi</span>
+          </div>
+        <% }else{ %>
           <span class="image">
             <img src="<%= user.me.images[0].url %>" alt="Profile pic">
           </span>
@@ -31,6 +43,7 @@
             <span class="name">Ciao</span>
             <span class="profession" style="text-overflow:unset;"><%= user.me.id %></span>
           </div>
+        <% } %>
         </div>
 
         <i class="bx bx-x toggle-x"></i>
@@ -71,12 +84,21 @@
           </ul>
         </div>
         <div class="bottom-content">
-          <li>
-            <a href="https://www.spotify.com/it/account/apps/">
-              <i class="bx bx-log-out icon"></i>
-              <span class="text nav-text">Logout</span>
-            </a>
-          </li>
+          <% if(user.me === undefined){%> 
+            <li>
+              <a href="#" onclick="accedi()">
+                <i class="bx bx-log-in icon"></i>
+                <span class="text nav-text">Login</span>
+              </a>
+            </li>
+          <% }else{ %> 
+            <li>
+              <a href="#" onclick="logout()">
+                <i class="bx bx-log-out icon"></i>
+                <span class="text nav-text">Logout</span>
+              </a>
+            </li>
+          <% }%>
           <li class="mode">
             <div class="sun-moon">
               <i class="bx bx-moon icon moon"></i>
@@ -152,6 +174,7 @@
               <section class="playlists text-center pt-2">
                 <div class="container">
                   <h2 class="mb-5">Le tue playlists</h2>
+                  <% if(!(myItems.playlists === undefined)){ %>
                   <div class="row">
                     <div class="slider">
                       <% myItems.playlists.items.forEach(playlist => { %>
@@ -167,6 +190,12 @@
                       <% }); %>
                     </div>
                   </div>
+                  <% }else{ %> 
+                    <div class="text-center">
+                      <h5>Devi accedere per poter visualizzare le tue playlist.</h5>
+                      <a href="#" onclick="accedi()" id="login" class="btn btn-lg btn-secondary fw-bold ">Accedi</a>
+                    </div>
+                  <% } %>
                 </div>
               </section>
             </div>
@@ -223,6 +252,32 @@
           }
         ] 
       });
+
+      function accedi(){
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            //console.log(xhttp);
+            if(xhttp.readyState == 4 && xhttp.status == 200)
+                window.location.href = xhttp.responseText;
+        }
+
+        xhttp.open('GET', '/login', true);
+        xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+        xhttp.send();
+      }
+
+      function logout(){
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            console.log(xhttp);
+            if(xhttp.readyState == 4 && xhttp.status == 200)
+                console.log('Dati dell\'utente rimossi correttamente');
+                window.location.href = '/';
+        }
+
+        xhttp.open('GET', '/logout', true);
+        xhttp.send();
+      }
     </script>
     
   </body>
