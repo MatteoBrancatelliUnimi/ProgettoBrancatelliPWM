@@ -1,13 +1,15 @@
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
 const path = require('path');
-const base64url = require('base64url');
+//const base64url = require('base64url');
 const bodyParser = require('body-parser');
 const scopes = ['ugc-image-upload', 'user-read-email', 'user-read-private','playlist-read-collaborative','playlist-modify-public','playlist-read-private','playlist-modify-private','user-library-modify','user-library-read','user-top-read', 'user-read-playback-position','user-read-recently-played','user-follow-read','user-follow-modify'];
-const client_id = "23305fca54214006893a401bee4acce3";
-const secret = "cb15c9b6c04840079157cda7fbdc3a8c";
-const uri = 'http://127.0.0.1:3000/callback';
-const port = process.env.PORT || 3000
+require('dotenv').config();
+
+const client_id = process.env.CLIENT_ID;
+const secret = process.env.SECRET;
+const uri = process.env.URI;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -26,9 +28,6 @@ var spotifyApi = new SpotifyWebApi({
 	redirectUri: uri
 });
 
-/*app.get('/', (req, res)=>{
-	res.render('login', {title: 'Playlitic'});
-});*/
 app.get('/', (req, res)=>{
 	res.render('index', {user: loggedUser, myItems: library});
 });

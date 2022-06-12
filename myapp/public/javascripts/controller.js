@@ -59,3 +59,29 @@ async function savePlaylist(id){
 
     });
 }
+
+function accedi(){
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+        //console.log(xhttp);
+        if(xhttp.readyState == 4 && xhttp.status == 200)
+            window.location.href = xhttp.responseText;
+    }
+
+    xhttp.open('GET', '/login', true);
+    xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhttp.send();
+  }
+
+  function logout(){
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+        console.log(xhttp);
+        if(xhttp.readyState == 4 && xhttp.status == 200)
+            console.log('Dati dell\'utente rimossi correttamente');
+            window.location.href = '/';
+    }
+
+    xhttp.open('GET', '/logout', true);
+    xhttp.send();
+  }
