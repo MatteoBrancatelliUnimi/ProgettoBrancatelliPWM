@@ -173,14 +173,15 @@ app.get('/getArtist/:id', (req, res)=>{
 });
 
 app.get('/createPlaylist/:data', (req, res)=>{
-	let input = JSON.parse(req.params.data);
+	var input = JSON.parse(req.params.data);
 	var id = '', playlistTracks = [];
-	console.log(input);
+	//console.log(input);
 	spotifyApi.createPlaylist(input.title, {'description':input.description, 'public':input.isPublic}).then(data => {
-		console.log(input.artists);
+		//console.log(input.artists);
 		return id = data.body.id;
 	}).then(id => {
-		return spotifyApi.getRecommendations({'limit': input.numEl, 'seed_artists': input.artists}).then(data => {
+		console.log(input.numElem);
+		return spotifyApi.getRecommendations({'limit': input.numElem, 'seed_artists': input.artists}).then(data => {
 			let tracks = data.body.tracks;
 			tracks.forEach(track => {
 				playlistTracks.push(track.uri);

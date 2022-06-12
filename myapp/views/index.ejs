@@ -45,7 +45,7 @@
           </li>
           <ul class="menu-links px-0">
             <li>
-              <a href="#" class="active">
+              <a href="/homepage" class="active">
                 <i class="bx bx-home-alt icon"></i>
                 <span class="text nav-text">Homepage</span>
               </a>
@@ -59,25 +59,13 @@
             <li>
               <a href="/getCategories">
                 <i class='bx bx-category-alt icon'></i>
+                  <span class="text nav-text">Categories</span>
+              </a>
+            </li>
+            <li>
+              <a href="/discover">
+                <i class='bx bx-world icon'></i>
                   <span class="text nav-text">Discover</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-pie-chart-alt icon' ></i>
-                  <span class="text nav-text">Analytics</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-heart icon' ></i>
-                  <span class="text nav-text">Likes</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-wallet icon' ></i>
-                  <span class="text nav-text">Wallets</span>
               </a>
             </li>
           </ul>
@@ -124,69 +112,84 @@
             </div>
             <!--end hero section-->
 
-                <!--Icons section-->
-                <section class="features-icons text-center">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                          <div class="features-icons-icon d-flex flex-column">
-                            <i class='bx bx-edit'></i>
-                            <h3 class="text">Playlist personalizzate</h3>
-                            <p class="lead mb-0">Facili da creare, clicca sul link per iniziare a creare la tua playlist</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                          <div class="features-icons-icon d-flex flex-column">
-                            <i class='bx bx-category-alt' ></i>
-                            <h3 class="text">Esplora le categorie</h3>
-                            <p class="lead mb-0">Filtra la ricerca in base al tuo genere preferito</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                          <div class="features-icons-icon d-flex flex-column">
-                            <i class='bx bx-search-alt' ></i>
-                            <h3 class="text">Trova Playlist</h3>
-                            <p class="lead mb-0">E aggiungila subito alla tua libreria Spotify.</p>
-                          </div>
-                        </div>
+            <!--Icons section-->
+            <section class="features-icons text-center">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-4 col-12 my-auto py-2">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                      <div class="features-icons-icon d-flex flex-column">
+                        <i class='bx bx-edit'></i>
+                        <h4 class="text">Crea</h4>
+                        <h6>Playlist personalizzate in base ai tuoi artisti preferiti</h6>
                       </div>
                     </div>
                   </div>
-                </section>
-                <!--End feature icons section-->
-
-                <!--User playlists-->
-                <section class="playlists text-center">
-                  <div class="container">
-                    <h2 class="mb-5">Le tue playlists</h2>
-                    <div class="row">
-                      <div class="slider">
-                        <% myItems.playlists.items.forEach(playlist => { %>
-                          <div class="col-lg-4">
-                            <div class="playlists-item mx-auto mb-5 mb-lg-0">
-                              <a href="/more/<%=playlist.id%>">
-                                <img src="<%= playlist.images[0].url %>" alt="Cover" class="img-fluid rounded-3 mb-3">
-                              </a>
-                              <h5><%= playlist.name %></h5>
-                              <p class="font-weight-light mb-0"><%= playlist.description %></p>
-                            </div>
-                          </div>
-                        <% }); %>
+                  <div class="col-lg-4 col-12 my-auto py-2">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                      <div class="features-icons-icon d-flex flex-column">
+                        <i class='bx bx-search-alt' ></i>
+                        <h4 class="text">Cerca</h4>
+                        <h6>tra milioni di playlist</h6>
                       </div>
                     </div>
                   </div>
-                </section>
+                  <div class="col-lg-4 col-12 my-auto py-2">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                      <div class="features-icons-icon d-flex flex-column">
+                        <i class='bx bx-heart' ></i>
+                        <h4 class="text">Salva</h4>
+                        <h6>direttamente sul tuo account Spotify</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </section>
+            <!--End feature icons section-->
+
+              <!--User playlists-->
+              <section class="playlists text-center pt-2">
+                <div class="container">
+                  <h2 class="mb-5">Le tue playlists</h2>
+                  <div class="row">
+                    <div class="slider">
+                      <% myItems.playlists.items.forEach(playlist => { %>
+                        <div class="col-lg-4 mx-4">
+                          <div class="playlists-item mx-auto mb-5 mb-lg-0">
+                            <a href="/more/<%=playlist.id%>">
+                              <img src="<%= playlist.images[0].url %>" alt="Cover" class="img-fluid rounded-3 mb-3">
+                            </a>
+                            <h5><%= playlist.name %></h5>
+                            <p class="font-weight-light mb-0"><%= playlist.description %></p>
+                          </div>
+                        </div>
+                      <% }); %>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
+            <footer class="d-flex flex-wrap justify-content-between align-items-center px-4 py-3 my-4 border-top">
+              <p class="col-md-4 mb-0 text-muted">&copy; 2022 Playlitic, Inc</p>
+          
+              <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+              </a>
+          
+              <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="/homepage" class="nav-link px-2 text-muted">Homepage</a></li>
+                <li class="nav-item"><a href="/create" class="nav-link px-2 text-muted">Create</a></li>
+                <li class="nav-item"><a href="/getCategories" class="nav-link px-2 text-muted">Categories</a></li>
+                <li class="nav-item"><a href="/discover" class="nav-link px-2 text-muted">Discover</a></li>
+              </ul>
+            </footer>
+            
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <script src="/javascripts/bootstrap.js"></script>
     <!--sidebar js-->
@@ -205,7 +208,20 @@
         slidesToScroll: 3,
         arrows: false,
         dots: true,
-        speed: 1000
+        speed: 1000,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              arrows: false,
+              dots: false,
+              centerMode: true,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              speed: 250
+            }
+          }
+        ] 
       });
     </script>
     
