@@ -33,7 +33,7 @@
             <i class='bx bx-user-circle icon'></i>
           </span>
           <div class="text logo-text">
-            <span class="name">Accedi</span>
+            <a class="name" onclick="accedi()">Accedi</a>
           </div>
         <% }else{ %>
           <span class="image">
@@ -86,14 +86,14 @@
         <div class="bottom-content">
           <% if(user.me === undefined){%> 
             <li>
-              <a href="#" onclick="accedi()">
+              <a onclick="accedi()">
                 <i class="bx bx-log-in icon"></i>
                 <span class="text nav-text">Login</span>
               </a>
             </li>
           <% }else{ %> 
             <li>
-              <a href="#" onclick="logout()">
+              <a onclick="logout()">
                 <i class="bx bx-log-out icon"></i>
                 <span class="text nav-text">Logout</span>
               </a>
@@ -193,7 +193,7 @@
                   <% }else{ %> 
                     <div class="text-center">
                       <h5>Devi accedere per poter visualizzare le tue playlist.</h5>
-                      <a href="#" onclick="accedi()" id="login" class="btn btn-lg btn-secondary fw-bold ">Accedi</a>
+                      <a onclick="accedi()" id="login" class="btn btn-lg btn-secondary fw-bold ">Accedi</a>
                     </div>
                   <% } %>
                 </div>

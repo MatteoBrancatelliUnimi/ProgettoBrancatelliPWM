@@ -27,6 +27,14 @@
     <nav class="sidebar close">
       <header>
         <div class="image-text">
+        <% if(user.me === undefined){ %> 
+          <span class="image">
+            <i class='bx bx-user-circle icon'></i>
+          </span>
+          <div class="text logo-text">
+            <a class="name" onclick="accedi()">Accedi</a>
+          </div>
+        <% }else{ %>
           <span class="image">
             <img src="<%= user.me.images[0].url %>" alt="Profile pic">
           </span>
@@ -34,6 +42,7 @@
             <span class="name">Ciao</span>
             <span class="profession" style="text-overflow:unset;"><%= user.me.id %></span>
           </div>
+        <% } %>
         </div>
 
         <i class="bx bx-x toggle-x"></i>
@@ -62,36 +71,33 @@
             <li>
               <a href="/getCategories">
                 <i class='bx bx-category-alt icon'></i>
+                  <span class="text nav-text">Categories</span>
+              </a>
+            </li>
+            <li>
+              <a href="/discover">
+                <i class='bx bx-world icon'></i>
                   <span class="text nav-text">Discover</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-pie-chart-alt icon' ></i>
-                  <span class="text nav-text">Analytics</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-heart icon' ></i>
-                  <span class="text nav-text">Likes</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                  <i class='bx bx-wallet icon' ></i>
-                  <span class="text nav-text">Wallets</span>
               </a>
             </li>
           </ul>
         </div>
         <div class="bottom-content">
-          <li>
-            <a href="https://www.spotify.com/it/account/apps/">
-              <i class="bx bx-log-out icon"></i>
-              <span class="text nav-text">Logout</span>
-            </a>
-          </li>
+          <% if(user.me === undefined){%> 
+            <li>
+              <a onclick="accedi()">
+                <i class="bx bx-log-in icon"></i>
+                <span class="text nav-text">Login</span>
+              </a>
+            </li>
+          <% }else{ %> 
+            <li>
+              <a onclick="logout()">
+                <i class="bx bx-log-out icon"></i>
+                <span class="text nav-text">Logout</span>
+              </a>
+            </li>
+          <% }%>
           <li class="mode">
             <div class="sun-moon">
               <i class="bx bx-moon icon moon"></i>
