@@ -188,8 +188,8 @@ app.get('/create', (req,res)=>{
 app.get('/search/:filter/:type', (req, res)=>{
 	const filter = req.params.filter;
 	const type = req.params.type;
-	spotifyApiNoLogin.search(filter, [type],{limit: 3}).then(results => {
-		res.send(results.body.artists);
+	spotifyApiNoLogin.search(filter, [type]).then(results => {
+		res.send(results.body);
 	});
 });
 
