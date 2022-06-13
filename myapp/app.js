@@ -220,6 +220,37 @@ app.get('/discover', (req, res)=>{
 	res.render('discover', {user: loggedUser});
 });
 
+app.get('/creaUltime50', (req, res)=>{
+	let id = '';
+	playlistItems = [];
+
+	spotifyApi.createPlaylist('Ultime 50', {'description': 'Le tue ultime 50 canzoni ascoltate.', 'public': true})
+	.then(data => {
+		id = data.body.id;
+		return spotifyApi.getMyRecentlyPlayedTracks({limit: 50}).then(data => {
+			data.body.items.forEach(traccia => {
+				playlistItems.push(traccia.track.uri);
+			});
+			return playlistItems;
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	})
+	.then(array => {
+		spotifyApi.addTracksToPlaylist(id, array)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			console.log(err);
+		});		
+	})
+	.catch(err => {
+		console.log(err);
+	});
+});
+
 
 var server = app.listen(port, ()=>{
 	var host = server.address().address;

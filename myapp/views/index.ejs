@@ -164,6 +164,77 @@
             </section>
             <!--End feature icons section-->
 
+            <!--Create section-->
+            <section class="text-center pt-2">
+              <div class="container">
+                <h2 class="mb-5">Creazione Rapida</h2>
+                <div class="row">
+                  <div class="col-sm-6 mx-auto">
+                    <div class="card mb-3 px-0" style="max-width: 540px;">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="/images/cardRecent.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Ultimi Ascolti</h5>
+                            <p class="card-text">Crea una playlist composta dalle ultime 50 tracce ascoltate con il tuo profilo Spotify</p>
+                            <% if(user.me === undefined){ %>
+                            <a onclick="accedi()" class="btn btn-primary">Accedi per creare</a>  
+                            <% }else{ %>
+                            <a onclick="creaUltime50()" class="btn btn-primary">Crea</a>  
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 mx-auto">
+                    <div class="card mb-3 px-0" style="max-width: 540px;">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="/images/lovedArtists.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Artisti Preferiti</h5>
+                            <p class="card-text">Crea una playlist composta dalle tracce degli artisti che hai aggiunto ai preferiti</p>
+                            <% if(user.me === undefined){ %>
+                            <a onclick="accedi()" class="btn btn-primary">Accedi per creare</a>  
+                            <% }else{ %>
+                            <a onclick="creaTopArtisti()" class="btn btn-primary">Crea</a>  
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 mx-auto">
+                    <div class="card mb-3 px-0" style="max-width: 540px;">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="/images/lovedTracks.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Tracce Preferite</h5>
+                            <p class="card-text">Crea una playlist composta dalle 50 tracce più ascoltate da sempre con il tuo profilo Spotify</p>
+                            <% if(user.me === undefined){ %>
+                            <a onclick="accedi()" class="btn btn-primary">Accedi per creare</a>  
+                            <% }else{ %>
+                            <a onclick="creaTopTracce()" class="btn btn-primary">Crea</a>  
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
               <!--User playlists-->
               <section class="playlists text-center pt-2">
                 <div class="container">

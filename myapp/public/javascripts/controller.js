@@ -91,3 +91,11 @@ function accedi(){
     const resultsArea = document.getElementById('results');
     resultsArea.innerHTML = '';
   }
+
+  async function creaUltime50(){
+    await fetch('/creaUltime50').then(data => {
+      return data.json();
+    }).then(results => {
+      alert(results.keys());
+    });
+  }
