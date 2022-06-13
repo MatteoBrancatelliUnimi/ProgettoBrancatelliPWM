@@ -57,7 +57,7 @@
           </li>
           <ul class="menu-links px-0">
             <li>
-              <a href="/">
+             <% if(user.me === undefined){ %><a href="/"> <% }else{ %><a href="/homepage"><% } %>
                 <i class="bx bx-home-alt icon"></i>
                 <span class="text nav-text">Homepage</span>
               </a>
@@ -118,7 +118,7 @@
               <div class="col-lg-6 mx-auto">
                 <div>
                   <p class="lead mb-4" style="white-space: normal;">
-                  Come funziona il generatore di playlist: seleziona uno o più artisti dal catalogo di Spotify, la playlist sarà creata con brani correlati agli artisti selezionati.
+                  Seleziona uno o più artisti dal catalogo di Spotify, la playlist sarà creata con brani correlati agli artisti selezionati.
                   Scegliendo di rendere pubblica la playlist questa sarà visibile a tutti gli utenti di spotify.
                   </p>
                 </div>
@@ -160,7 +160,11 @@
                 </div>
               </div>
               <div class="col-12">
-                <button type="submit" onclick="validateForm()"  class="btn btn-primary">Crea</button>
+                <% if(user.me === undefined){ %>
+                  <button type="button" onclick="accedi()" class="btn btn-primary">Accedi per creare una playlist</button>  
+                <% }else { %>
+                  <button type="submit" onclick="validateForm()"  class="btn btn-primary">Crea</button>
+                <% } %>
                 <p id="errMsg" style="display:hidden;"></p>
               </div>
             </div>
@@ -182,7 +186,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary"><a href="/">Vai alla libreria</a></button>
+        <button type="button" class="btn btn-primary"><a style="text-decoration: none;" href="/homepage">Vai alla libreria</a></button>
       </div>
     </div>
   </div>

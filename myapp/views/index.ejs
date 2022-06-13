@@ -58,7 +58,7 @@
           </li>
           <ul class="menu-links px-0">
             <li>
-              <a href="/" class="active">
+             <% if(user.me === undefined){ %><a href="/" class="active"> <% }else{ %><a href="/homepage" class="active"><% } %>
                 <i class="bx bx-home-alt icon"></i>
                 <span class="text nav-text">Homepage</span>
               </a>

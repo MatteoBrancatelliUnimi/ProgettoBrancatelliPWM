@@ -107,14 +107,6 @@ app.get('/homepage', (req, res)=>{
 	})
 	.then(playlists => {
 		library.playlists = playlists;
-		return spotifyApi.getFollowedArtists().then(data => {
-			return data.body.artists;;
-		}).catch(err => {
-			res.render('error', {message: 'Errore nel recuperare i tuoi artisti.', error: err});
-		});
-	})
-	.then(followedArtists => {
-		library.artists = followedArtists;
 		res.render('index', {user: loggedUser, myItems: library});
 		//res.send(JSON.stringify({user: loggedUser, myItems: library}));
 	})

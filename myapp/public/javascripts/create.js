@@ -91,6 +91,7 @@ function selectArtist(elem){
         const myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
         let message = document.getElementById('msgBody'); 
         message.innerText = 'La playlist è stata creata correttamente. La puoi trovare nella tua libreria!';
+        
         myModal.show();
         console.log(data);
       });
