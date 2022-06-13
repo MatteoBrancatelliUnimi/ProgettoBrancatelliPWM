@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       //dl.innerHTML = '';
       const filter = input.value;
       if(filter == '' && !list.hasChildNodes()) list.innerHTML = '';
-      else sendSearch(filter, 'artist');
+      else searchArtists(filter, 'artist');
     }); 
   });
 
-  function sendSearch(filter, type){
+  function searchArtists(filter, type){
     var list = document.getElementById('resArtists');
     //var listItems = list.getElementsByClassName('list-group-item-success');
     var listItems = list.querySelectorAll('li:not(.list-group-item-success)');
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return results.json();
     })
     .then(data => {
-      data.items.forEach(result => {
+      data.artists.items.forEach(result => {
         //check if the result is not yet in the list
         var isPresent = document.getElementById(result.id);
         

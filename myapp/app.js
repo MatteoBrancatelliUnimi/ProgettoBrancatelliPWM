@@ -119,38 +119,25 @@ app.get('/homepage', (req, res)=>{
 		//res.send(JSON.stringify({user: loggedUser, myItems: library}));
 	})
 	.catch(err => {
+		console.log(err);
 		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err});
-	});
-});
-
-app.get('/getCategories', (req, res) => {
-	spotifyApi.getCategories({limit: 50, country: 'IT'}).then(data => {
-		let catList = data.body.categories;
-		res.render('categories', {user: loggedUser, list: catList});
-	})
-	.catch(err => {
-		res.render('error', {message: 'Errore nel recuperare le categorie di Spotify.', error: err});
-	});
-});
-
-app.get('/searchPlaylists/:id', (req, res)=>{
-	let id = req.params.id;
-	spotifyApi.getPlaylistsForCategory(id, {country: 'IT'})
-	.then(data => {
-		res.send(data.body.playlists);
 	});
 });
 
 app.get('/more/:idPlaylist', (req, res)=>{
 	var idPlaylist = req.params.idPlaylist;
-	spotifyApi.getPlaylist(idPlaylist).then(data => {
-		isInMyLibrary(idPlaylist, 'playlist').then(result => {
-			if(result){
-				res.render('item', {user: loggedUser, playlist: data.body, isPresent: true});
-			}else{
-				res.render('item', {user: loggedUser, playlist: data.body, isPresent: false});
-			}
-		});
+	spotifyApiNoLogin.getPlaylist(idPlaylist).then(data => {
+		if(loggedUser.me === undefined){
+			res.render('item', {user: loggedUser, playlist: data.body, status: 'no-login'});
+		}else{
+			isInMyLibrary(idPlaylist, 'playlist').then(result => {
+				if(result){
+					res.render('item', {user: loggedUser, playlist: data.body, status: 'present'});
+				}else{
+					res.render('item', {user: loggedUser, playlist: data.body, status: 'absent'});
+				}
+			});	
+		}
 		//console.log(data.body.tracks.items[0].track.name);
 	})
 	.catch(err => {

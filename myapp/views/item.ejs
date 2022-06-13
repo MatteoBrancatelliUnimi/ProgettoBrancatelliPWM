@@ -53,7 +53,7 @@
           </li>
           <ul class="menu-links px-0">
             <li>
-              <a href="/homepage">
+              <a href="/">
                 <i class="bx bx-home-alt icon"></i>
                 <span class="text nav-text">Homepage</span>
               </a>
@@ -62,12 +62,6 @@
               <a href="/create">
                 <i class='bx bx-list-plus icon'></i>
                   <span class="text nav-text">Create</span>
-              </a>
-            </li>
-            <li>
-              <a href="/getCategories">
-                <i class='bx bx-category-alt icon'></i>
-                  <span class="text nav-text">Categories</span>
               </a>
             </li>
             <li>
@@ -120,12 +114,17 @@
                   <h1 class="display-4 fw-bold lh-1"><%= playlist.name %></h1>
                   <p class="lead"><%= playlist.description %></p>
                   <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <% if(isPresent){ %> 
+                    <% if(status == 'no-login'){ %> 
+                      <a id="addButton" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
+                        <i class="bx bx-log-in" id='addIcon'></i>
+                        <span id="addText">Accedi per salvare</span>
+                      </a>
+                    <% }else if(status == 'present'){ %>
                       <a id="addButton" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
                         <i class="bx bxs-heart" id='addIcon'></i>
-                        <span id="addText">Salvata!</span>
+                        <span id="addText">Salvata</span>
                       </a>
-                    <% }else{ %>
+                    <% }else{ %> 
                       <a onclick="savePlaylist('<%= playlist.id %>')" id="addButton" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
                         <i class="bx bx-heart" id='addIcon'></i>
                         <span id="addText">Salva</span>
