@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% if(user.me === undefined){ %> 
+      <title>Playlitic - Playlist personalizzate</title>
+    <% }else{ %> 
+      <title><%= user.me.id %></title>
+    <% } %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"> 
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="/stylesheets/discover.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!--boxicons css-->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+  </head>
+  <body>
+    <!--SIDEBAR-->
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+            <% if(user.me === undefined){ %> 
+            <span class="image">
+                <i class='bx bx-user-circle icon'></i>
+            </span>
+            <div class="text logo-text">
+                <a class="name" onclick="accedi()">Accedi</a>
+            </div>
+            <% }else{ %>
+            <span class="image">
+                <img src="<%= user.me.images[0].url %>" alt="Profile pic">
+            </span>
+            <div class="text logo-text">
+                <span class="name">Ciao</span>
+                <span class="profession" style="text-overflow:unset;"><%= user.me.id %></span>
+            </div>
+            <% } %>
+            </div>
+    
+            <i class="bx bx-x toggle-x"></i>
+            <i class="bx bx-chevron-right toggle-arrow"></i>
+        </header>
+    
+        <div class="menu-bar">
+            <div class="menu">
+            <li class="search-box">
+                <i class="bx bx-search icon"></i>
+                <input type="text" placeholder="Search...">
+            </li>
+            <ul class="menu-links px-0">
+                <li>
+                <a href="/homepage">
+                    <i class="bx bx-home-alt icon"></i>
+                    <span class="text nav-text">Homepage</span>
+                </a>
+                </li>
+                <li>
+                <a href="/create">
+                    <i class='bx bx-list-plus icon'></i>
+                    <span class="text nav-text">Create</span>
+                </a>
+                </li>
+                <li>
+                <a href="/getCategories">
+                    <i class='bx bx-category-alt icon'></i>
+                    <span class="text nav-text">Categories</span>
+                </a>
+                </li>
+                <li>
+                <a href="/discover" class="active">
+                    <i class='bx bx-world icon'></i>
+                    <span class="text nav-text">Discover</span>
+                </a>
+                </li>
+            </ul>
+            </div>
+            <div class="bottom-content">
+            <% if(user.me === undefined){%> 
+                <li>
+                <a onclick="accedi()">
+                    <i class="bx bx-log-in icon"></i>
+                    <span class="text nav-text">Login</span>
+                </a>
+                </li>
+            <% }else{ %> 
+                <li>
+                <a onclick="logout()">
+                    <i class="bx bx-log-out icon"></i>
+                    <span class="text nav-text">Logout</span>
+                </a>
+                </li>
+            <% }%>
+            <li class="mode">
+                <div class="sun-moon">
+                <i class="bx bx-moon icon moon"></i>
+                <i class="bx bx-sun icon sun"></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+                <div class="toggle-switch">
+                <span class="switch"></span>
+                </div>
+            </li>
+            </div>
+        </div>
+    </nav>
+    <!--End sidebar-->
+
+    <section class="home" style="white-space: normal;">
+        <div class="container">
+            <div class="card">
+                <i class="bx bx-menu sidebarOpen"></i>
+                <div class="card-body">
+                <!--hero section-->
+                    <div class="px-4 py-4 mt-5 mb-auto text-center">
+                         <h1 class="display-5 fw-bold">Esplora</h1>
+                        <div class="col-lg-6 mx-auto">
+                            <div>
+                                <p class="lead mb-4" style="white-space: normal;">Utilizza la barra di ricerca per cercare playlist create da altri utenti della community di Spotify</p>
+                            </div>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                               <!--search bar-->
+                               <div class="input-group rounded">
+                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="bx bx-search"></i>
+                                </span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--end hero section-->
+                <!--results section-->
+                <section id="results" class="pt-4 text-center">
+                    <h3>I risultati della ricerca appariranno qui</h3>
+                </section>
+                </div>
+                <footer class="d-flex flex-wrap justify-content-between align-items-center px-4 py-3 my-4 border-top">
+                    <p class="col-md-4 mb-0 text-muted">&copy; 2022 Playlitic, Inc</p>
+                
+                    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    </a>
+                
+                    <ul class="nav col-md-4 justify-content-end">
+                    <li class="nav-item"><a href="/homepage" class="nav-link px-2 text-muted">Homepage</a></li>
+                    <li class="nav-item"><a href="/create" class="nav-link px-2 text-muted">Create</a></li>
+                    <li class="nav-item"><a href="/getCategories" class="nav-link px-2 text-muted">Categories</a></li>
+                    <li class="nav-item"><a href="/discover" class="nav-link px-2 text-muted">Discover</a></li>
+                    </ul>
+                </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="/javascripts/bootstrap.js"></script>
+    <!--sidebar js-->
+    <script type="text/javascript" src="/javascripts/sidebar.js"></script>
+    <!-- controller js-->
+    <script type="text/javascript" src="/javascripts/controller.js"></script>
+  </body>
+</html>

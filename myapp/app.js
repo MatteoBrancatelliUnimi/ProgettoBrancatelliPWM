@@ -21,12 +21,31 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-//set app credentials
+//set app credentials for logged users
 var spotifyApi = new SpotifyWebApi({
 	clientId: client_id,
 	clientSecret: secret,
 	redirectUri: uri
 });
+//set app credentials for not-logged users
+var spotifyApiNoLogin = new SpotifyWebApi({
+	clientId: client_id,
+	clientSecret: secret
+});
+
+// Retrieve an access token.
+spotifyApiNoLogin.clientCredentialsGrant().then(
+	function(data) {
+		//console.log('The access token expires in ' + data.body.expires_in);
+		//console.log('The access token is ' + data.body.access_token);
+
+		// Save the access token so that it's used in future calls
+		spotifyApiNoLogin.setAccessToken(data.body.access_token);
+	},
+	function(err) {
+		console.log('Something went wrong when retrieving an access token', err);
+	}
+);
 
 app.get('/', (req, res)=>{
 	res.render('index', {user: loggedUser, myItems: library});
@@ -166,9 +185,10 @@ app.get('/create', (req,res)=>{
 	res.render('create', {user: loggedUser});
 });
 
-app.get('/search/:filter', (req, res)=>{
-	let filter = req.params.filter;
-	spotifyApi.search(filter, ['artist'],{limit: 3}).then(results => {
+app.get('/search/:filter/:type', (req, res)=>{
+	const filter = req.params.filter;
+	const type = req.params.type;
+	spotifyApiNoLogin.search(filter, [type],{limit: 3}).then(results => {
 		res.send(results.body.artists);
 	});
 });
@@ -212,6 +232,14 @@ app.get('/createPlaylist/:data', (req, res)=>{
 		console.log('Errore nel creare la playlist ' + err);
 	});
 }); 
+
+function isUserLogged(){
+	return loggedUser.me === undefined ? false : true;
+}
+
+app.get('/discover', (req, res)=>{
+	res.render('discover', {user: loggedUser});
+});
 
 
 var server = app.listen(port, ()=>{

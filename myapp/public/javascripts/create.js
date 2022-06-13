@@ -3,20 +3,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let list = document.getElementById('resArtists');
     input.addEventListener('keyup', () => {
       //dl.innerHTML = '';
-      var filter = input.value;
+      const filter = input.value;
       if(filter == '' && !list.hasChildNodes()) list.innerHTML = '';
-      else sendSearch(filter);
+      else sendSearch(filter, 'artist');
     }); 
   });
 
-  function sendSearch(filter){
+  function sendSearch(filter, type){
     var list = document.getElementById('resArtists');
     //var listItems = list.getElementsByClassName('list-group-item-success');
     var listItems = list.querySelectorAll('li:not(.list-group-item-success)');
     for(i=0; i<listItems.length; i++){
       listItems[i].remove();
     }
-    fetch('/search/'+filter).then(results => {
+    fetch('/search/'+filter+'/'+type).then(results => {
       return results.json();
     })
     .then(data => {
