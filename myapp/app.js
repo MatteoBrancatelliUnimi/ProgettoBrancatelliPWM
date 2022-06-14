@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const client_id = process.env.CLIENT_ID;
 const secret = process.env.SECRET;
-const uri = process.env.URI;
+const uri = process.env.URI || process.env.HEROKU;
 const port = process.env.PORT || 3000;
 
 const app = express();
