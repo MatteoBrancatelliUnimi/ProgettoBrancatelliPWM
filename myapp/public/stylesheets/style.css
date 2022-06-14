@@ -181,12 +181,14 @@ body.dark{
     }
 
     .sidebar header .image,
-    .sidebar .icon{
+    .sidebar .icon,
+    .spotify-icon{
         min-width: 60px;
         border-radius: 6px;
     }
 
-    .sidebar .icon{
+    .sidebar .icon,
+    .spotify-icon{
         min-width: 60px;
         border-radius: 6px;
         height: 100%;
@@ -204,7 +206,8 @@ body.dark{
         font-size: 20px;
     }
     .sidebar .text,
-    .sidebar .icon{
+    .sidebar .icon,
+    .spotify-icon{
         color: var(--text-color);
         transition: var(--tran-03);
     }
@@ -281,14 +284,14 @@ body.dark{
         margin-top: 40px;
     }
 
-    .sidebar li.search-box{
+    .sidebar li.spoti-box{
         border-radius: 6px;
         background-color: var(--primary-color-light);
         cursor: pointer;
         transition: var(--tran-05);
     }
 
-    .sidebar li.search-box input{
+    .sidebar li.spoti-box input{
         height: 100%;
         width: 100%;
         outline: none;
@@ -444,3 +447,6 @@ body.dark{
         cursor: pointer;
     }
 
+    #footer-links:hover{
+        cursor: pointer;
+    }
