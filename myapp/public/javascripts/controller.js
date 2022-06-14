@@ -99,3 +99,19 @@ function accedi(){
       alert(results.keys());
     });
   }
+
+  async function creaTopArtisti(){
+    await fetch('/creaTopArtisti').then(data => {
+      return data.body;
+    }).then(results => {
+      console.log(typeof(results));
+    });
+  }
+
+  async function creaTopTracce(){
+    await fetch('/creaTopTracce').then(data => {
+      return data.body;
+    }).then(results => {
+      console.log(results);
+    });
+  }

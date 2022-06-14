@@ -251,6 +251,72 @@ app.get('/creaUltime50', (req, res)=>{
 	});
 });
 
+app.get('/creaTopArtisti', (req, res) => {
+	var idPlaylist = '';
+
+	spotifyApi.createPlaylist('Top 20 Artisti', {'description':'5 brani dei tuoi 20 artisti più ascoltati', 'public': true})
+	.then(data => {
+		idPlaylist = data.body.id;
+		return spotifyApi.getMyTopArtists().then(data => {
+			return data.body.items;
+		});
+	}).then(topArtists => {
+		var playlistItems = [];
+		let promiseArr = topArtists.map(artista => {
+			return spotifyApi.getArtistTopTracks(artista.id, 'IT').then(res => {
+				//Prendi le prime 5
+				let firstTracks = res.body.tracks.slice(0,5);
+				firstTracks.forEach(track => {
+					playlistItems.push(track.uri);
+				});
+				return playlistItems;
+			});
+		});
+
+		return Promise.all(promiseArr).then(resultsArray => {
+			return resultsArray[0];
+		}).catch(err => console.log(err));
+	}).then(uriArray => {
+		spotifyApi.addTracksToPlaylist(idPlaylist, uriArray)
+		.then(data => {
+			res.send(data);
+		}).catch(err => console.log(err));
+	})
+	.catch(err => {
+		res.render('error', {message: 'Problema nel creare la playlist. Riprova più tardi.', error: err});
+	})
+});
+
+app.get('/creaTopTracce', (req, res) => {
+	var id = '';
+	playlistItems = [];
+
+	spotifyApi.createPlaylist('Le mie tracce preferite', {'description': 'Playlist creata in base alle tue 50 tracce più ascoltate.', 'public': true})
+	.then(data => {
+		id = data.body.id;
+		return spotifyApi.getMyTopTracks({limit: 50}).then(data => {
+			data.body.items.forEach(traccia => {
+				playlistItems.push(traccia.uri);
+			});
+			return playlistItems;
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	})
+	.then(array => {
+		spotifyApi.addTracksToPlaylist(id, array)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	})
+	.catch(err => {
+		console.log(err);
+	});
+});
 
 var server = app.listen(port, ()=>{
 	var host = server.address().address;
