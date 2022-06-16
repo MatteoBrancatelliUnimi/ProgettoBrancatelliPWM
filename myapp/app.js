@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const client_id = process.env.CLIENT_ID;
 const secret = process.env.SECRET;
-const uri = process.env.HEROKU;
+const uri = process.env.HEROKU || "127.0.0.1:3000";
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -98,6 +98,7 @@ app.get('/homepage', (req, res)=>{
 
 	spotifyApi.getMe().then(data => {
 		loggedUser.me = data.body;
+		console.log(loggedUser.me);
 		
 		return spotifyApi.getUserPlaylists(loggedUser.me.name).then(data => {
 			return data.body;
@@ -112,7 +113,7 @@ app.get('/homepage', (req, res)=>{
 	})
 	.catch(err => {
 		console.log(err);
-		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err});
+		res.render('error', {message: 'Errore nel recuperare i dati del tuo profilo.', error: err.t});
 	});
 });
 

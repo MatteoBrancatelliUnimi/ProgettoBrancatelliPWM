@@ -33,7 +33,11 @@
           </div>
         <% }else{ %>
           <span class="image">
+            <% if(user.me.images.length == 0){ %> 
+            <img src="/images/spotify-logo-24.png" alt="Profile pic">
+            <% }else{ %> 
             <img src="<%= user.me.images[0].url %>" alt="Profile pic">
+            <% } %>
           </span>
           <div class="text logo-text">
             <span class="name">Ciao</span>
