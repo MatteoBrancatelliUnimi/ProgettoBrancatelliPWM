@@ -94,9 +94,10 @@ function accedi(){
 
   async function creaUltime50(){
     await fetch('/creaUltime50').then(data => {
-      return data.json();
+      return data;
     }).then(results => {
-      alert(results.keys());
+      console.log(results);
+      createModal();
     });
   }
 
@@ -104,7 +105,8 @@ function accedi(){
     await fetch('/creaTopArtisti').then(data => {
       return data.body;
     }).then(results => {
-      console.log(typeof(results));
+      console.log(results);
+      createModal();
     });
   }
 
@@ -113,5 +115,13 @@ function accedi(){
       return data.body;
     }).then(results => {
       console.log(results);
+      createModal();
     });
+  }
+
+  function createModal(){
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
+    document.getElementById('msgBody').innerText = 'La playlist è stata creata correttamente. La puoi trovare nella tua libreria!';
+
+    myModal.show();
   }

@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', ()=>{
     const input = document.getElementById('inputArtists');
     let list = document.getElementById('resArtists');

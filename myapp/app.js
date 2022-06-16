@@ -8,7 +8,8 @@ require('dotenv').config();
 
 const client_id = process.env.CLIENT_ID;
 const secret = process.env.SECRET;
-const uri = process.env.HEROKU || "127.0.0.1:3000";
+const uri = process.env.HEROKU || process.env.URI;
+//const uri = "http://127.0.0.1:3000/callback"
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -21,6 +22,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
 //set app credentials for logged users
 var spotifyApi = new SpotifyWebApi({
 	clientId: client_id,
@@ -98,7 +100,7 @@ app.get('/homepage', (req, res)=>{
 
 	spotifyApi.getMe().then(data => {
 		loggedUser.me = data.body;
-		console.log(loggedUser.me);
+		//console.log(loggedUser.me);
 		
 		return spotifyApi.getUserPlaylists(loggedUser.me.name).then(data => {
 			return data.body;
