@@ -248,6 +248,11 @@
                   <h2 class="mb-5">Le tue playlists</h2>
                   <% if(!(myItems.playlists === undefined)){ %>
                   <div class="row">
+                    <% if(myItems.playlists.items.length == 0){ %> 
+                    <div class="text-center">
+                      <h5>Sembra che tu non abbia alcuna playlist!</h5>
+                    </div>
+                    <% }else{ %> 
                     <div class="slider">
                       <% myItems.playlists.items.forEach(playlist => { %>
                         <div class="col-lg-4 mx-4">
@@ -261,6 +266,7 @@
                         </div>
                       <% }); %>
                     </div>
+                    <% } %>
                   </div>
                   <% }else{ %> 
                     <div class="text-center">
