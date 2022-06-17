@@ -8,8 +8,8 @@ require('dotenv').config();
 
 const client_id = process.env.CLIENT_ID;
 const secret = process.env.SECRET;
-const uri = process.env.HEROKU || process.env.URI;
-//const uri = "http://127.0.0.1:3000/callback"
+//const uri = process.env.HEROKU || process.env.URI;
+const uri = "http://127.0.0.1:3000/callback"
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -54,13 +54,14 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/login', (req, res)=>{
-	res.send(spotifyApi.createAuthorizeURL(scopes));
+	//console.log(spotifyApi.createAuthorizeURL(scopes));
+	res.end(spotifyApi.createAuthorizeURL(scopes));
 });
 
 app.get('/logout', (req, res)=>{
 	loggedUser = {};
 	library = {};
-	res.send('Cleared');
+	res.redirect('/');
 });
 
 //Callback function for Spotify

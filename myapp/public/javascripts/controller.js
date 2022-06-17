@@ -10,13 +10,20 @@ async function savePlaylist(id){
         icon.classList.add('bxs-heart');
 
         text.innerText = 'Salvata!';
-        render('login');
+        
 
     });
 }
 
-function accedi(){
-    let xhttp = new XMLHttpRequest();
+async function accedi(){
+    await fetch('/login').then(response => {
+      //console.log(response);
+      return response.text();
+    }).then(data => {
+      //console.log('Sono qui');
+      window.location.href = data;
+    });
+   /* let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = () => {
         //console.log(xhttp);
         if(xhttp.readyState == 4 && xhttp.status == 200)
@@ -25,11 +32,17 @@ function accedi(){
 
     xhttp.open('GET', '/login', true);
     xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhttp.send();
+    xhttp.send();*/
   }
 
-  function logout(){
-    let xhttp = new XMLHttpRequest();
+async function logout(){
+    await fetch('/logout').then(response => {
+      return response.text();
+    }).then(data => {
+      console.log(data);
+      window.location.href = '/';
+    });
+    /*let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = () => {
         console.log(xhttp);
         if(xhttp.readyState == 4 && xhttp.status == 200)
@@ -38,7 +51,7 @@ function accedi(){
     }
 
     xhttp.open('GET', '/logout', true);
-    xhttp.send();
+    xhttp.send();*/
   }
 
   async function sendSearch(txt){

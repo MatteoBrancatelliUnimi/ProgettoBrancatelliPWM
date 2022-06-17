@@ -450,3 +450,7 @@ body.dark{
     #footer-links:hover{
         cursor: pointer;
     }
+    #link-to-spotify{
+        color: var(--text-color);
+        text-decoration: none;
+    }
