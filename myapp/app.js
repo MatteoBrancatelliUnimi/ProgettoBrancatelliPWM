@@ -8,8 +8,8 @@ require('dotenv').config();
 
 const client_id = process.env.CLIENT_ID;
 const secret = process.env.SECRET;
-//const uri = process.env.HEROKU || process.env.URI;
-const uri = "http://127.0.0.1:3000/callback"
+const uri = process.env.HEROKU || process.env.URI;
+//const uri = "http://127.0.0.1:3000/callback"
 const port = process.env.PORT || 3000;
 
 const app = express();
