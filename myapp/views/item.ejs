@@ -158,6 +158,7 @@
                     <tbody>
                     <% let index = 1; %>
                     <% playlist.tracks.items.forEach(el => { %>
+                        <% if(el.track != undefined){%>
                         <% let names = ''; %>
                         <tr>
                             <th scope="row" class="text-center px-4""><%= index %></th>
@@ -184,6 +185,7 @@
                             <td class="px-4"><%= millisToMinutesAndSeconds(el.track.duration_ms) %></td>
                         </tr>
                     <% index++; %>
+                    <% } %>
                     <% }) %>
                     </tbody>
                   </table>
