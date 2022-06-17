@@ -162,7 +162,11 @@
                         <tr>
                             <th scope="row" class="text-center px-4""><%= index %></th>
                             <td class="px-4"><div class="d-flex flex-row" style="max-width: 30rem;">
+                                <% if(el.track.album.images.length == 0){ %>
+                                <img src="/images/default.jpg" alt="Album cover" width="70" class="rounded px-1 py-1">  
+                                <% }else{ %> 
                                 <img src="<%= el.track.album.images[0].url %>" alt="Album cover" width="70" class="rounded px-1 py-1">
+                                <% } %>
                                 <div class="d-flex flex-column text-truncate align-middle py-2 px-2">
                                     <span class="text-truncate fw-500"><%= el.track.name %></span>
                                     <% el.track.artists.forEach(artist => { %> 
